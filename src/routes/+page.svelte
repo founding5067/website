@@ -62,7 +62,7 @@
 		font-weight: 700;
 		letter-spacing: -0.02em;
 		line-height: 1.05;
-		color: hsl(95, 40%, 30%);
+		color: hsl(215, 60%, 30%);
 	}
 
 	.tagline {

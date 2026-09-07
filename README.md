@@ -21,7 +21,8 @@ The build is fully prerendered by `@sveltejs/adapter-static` into `build/`, so y
 ## Background
 
 The warm animated "aura" background is a basic-CSS approximation of the effect on
-[seanhalpin.xyz](https://www.seanhalpin.xyz/) (soft radial-gradients in a green/gold/mint
-palette, drifting slowly via transform, with a fade into the cream page color).
+[seanhalpin.xyz](https://www.seanhalpin.xyz/) (soft radial-gradients in an
+orange/yellow/blue palette, drifting slowly via transform, with a fade
+into the cream page color).
 
 Tweak it in `src/lib/aura.css` — the colors are CSS variables at the top of that file.

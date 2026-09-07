@@ -6,7 +6,7 @@
    trig waves onto a canvas and upscales it, which
    is what gives it that soft blobby look. We fake
    that with big soft radial-gradients in the same
-   green/gold/mint palette, drifting slowly via
+   orange/yellow/blue palette, drifting slowly via
    transform (composited on the GPU, so it's cheap).
 
    Tweak the variables below to taste.
@@ -14,9 +14,9 @@
 
 :root {
 	--bg: hsl(36, 31%, 90%); /* warm cream, like the original */
-	--aura-green: hsl(95, 55%, 62%);
-	--aura-gold: hsl(42, 85%, 70%);
-	--aura-mint: hsl(160, 45%, 72%);
+	--aura-orange: hsl(25, 90%, 60%);
+	--aura-yellow: hsl(48, 95%, 65%);
+	--aura-blue: hsl(215, 75%, 62%);
 	--ink: #44403c;
 	--ink-soft: #57534e;
 	--ink-faint: #78716c;
@@ -44,9 +44,9 @@ body::before {
 	pointer-events: none;
 	opacity: 0.55;
 	background:
-		radial-gradient(55rem 40rem at 15% 0%, var(--aura-green), transparent 70%),
-		radial-gradient(65rem 45rem at 75% -10%, var(--aura-gold), transparent 70%),
-		radial-gradient(75rem 55rem at 45% 25%, var(--aura-mint), transparent 70%);
+		radial-gradient(55rem 40rem at 15% 0%, var(--aura-orange), transparent 70%),
+		radial-gradient(65rem 45rem at 75% -10%, var(--aura-yellow), transparent 70%),
+		radial-gradient(75rem 55rem at 45% 25%, var(--aura-blue), transparent 70%);
 	animation: aura-drift 24s ease-in-out infinite alternate;
 }
 

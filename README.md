@@ -1,6 +1,6 @@
 # Resume Website
 
-A personal resume website built with Vue.js, Vue Router, and Tailwind CSS.
+A personal resume website built with Vue.js, Vue Router.
 
 ## Getting Started
 

@@ -1,8 +1,75 @@
+/* ============================================
+   Warm "aura" background — a basic-CSS homage to
+   the animated gradient on seanhalpin.xyz.
+
+   The original paints a 32x32 pixel grid of slow
+   trig waves onto a canvas and upscales it, which
+   is what gives it that soft blobby look. We fake
+   that with big soft radial-gradients in the same
+   green/gold/mint palette, drifting slowly via
+   transform (composited on the GPU, so it's cheap).
+
+   Tweak the variables below to taste.
+   ============================================ */
+
+:root {
+  --bg: hsl(36, 31%, 90%);            /* warm cream, like the original */
+  --aura-green: hsl(95, 55%, 62%);
+  --aura-gold: hsl(42, 85%, 70%);
+  --aura-mint: hsl(160, 45%, 72%);
+}
+
 body {
   font-family: Arial, sans-serif;
-  background-color: #f4f4f4;
+  background-color: var(--bg);
   margin: 0;
   padding: 0;
+}
+
+/* The drifting aurora: fixed to the viewport, behind all content */
+body::before {
+  content: "";
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: -1;
+  pointer-events: none;
+  opacity: 0.55;
+  background:
+    radial-gradient(55rem 40rem at 15% 0%, var(--aura-green), transparent 70%),
+    radial-gradient(65rem 45rem at 75% -10%, var(--aura-gold), transparent 70%),
+    radial-gradient(75rem 55rem at 45% 25%, var(--aura-mint), transparent 70%);
+  animation: aura-drift 24s ease-in-out infinite alternate;
+}
+
+/* The original melts the bottom of the aurora into solid cream —
+   same trick: transparent up top, base color lower down the page */
+body::after {
+  content: "";
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: -1;
+  pointer-events: none;
+  background: linear-gradient(to bottom, transparent 20%, var(--bg) 75%);
+}
+
+@keyframes aura-drift {
+  0%   { transform: translate3d(0, 0, 0) scale(1); }
+  33%  { transform: translate3d(-4%, 3%, 0) scale(1.12); }
+  66%  { transform: translate3d(3%, -2%, 0) scale(1.05); }
+  100% { transform: translate3d(-2%, 1%, 0) scale(1.18); }
+}
+
+/* Respect the OS "reduce motion" setting */
+@media (prefers-reduced-motion: reduce) {
+  body::before {
+    animation: none;
+  }
 }
 
 .container {

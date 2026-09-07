@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
 	let name = $state('Cole Braswell');
 	let tagline = $state('software developer');
 </script>

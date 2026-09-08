@@ -6,8 +6,8 @@
 - Run tests: `vitest run`
 
 ## Dev work
-- Always make test cases if possible
 - After every ask, make sure the tests still pass
+- After every ask, run prettier to make sure files are formatted correctly
 
 ## Code style
 - Use TypeScript

@@ -1,12 +1,12 @@
 <script lang="ts">
 	let name = $state('Cole Braswell');
-	let tagline = $state('software developer');
+	let tagline = $state('lifelong gamer, home cook, and aspiring SwiftUI developer');
 </script>
 
 <svelte:head>
 	<title>Hey, I'm {name} — {tagline}</title>
 	<meta
-		content="Welcome to my resume site. {name} is a {tagline} passionate about building clean and efficient web applications."
+		content="Welcome to my resume site. {name} is a {tagline}"
 		name="description"
 	/>
 </svelte:head>
@@ -16,12 +16,11 @@
 		<p class="kicker">Hey, I'm</p>
 		<h1 class="name">{name}</h1>
 		<p class="tagline">
-			A {tagline} passionate about building clean and efficient web applications — I love
-			learning new technologies and solving complex problems.
+			A {tagline} passionate about electric vehicles, solar energy, heat pumps, and dishwashers.
 		</p>
 		<p class="bio">
-			When I'm not coding, you can find me hiking, reading, or experimenting with new
-			recipes in the kitchen.
+			I love to cook and host friends and family with my wife. Online you'll find me in an
+			Overwatch ranked game or a Deep Rock Galactic run.
 		</p>
 
 		<div class="more" aria-label="More coming soon">

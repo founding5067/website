@@ -11,7 +11,11 @@ describe('home page', () => {
 
 	it('renders the tagline', () => {
 		const { getByText } = render(Page);
-		expect(getByText(/software developer passionate about building/)).toBeInTheDocument();
+		expect(
+			getByText(
+				/lifelong gamer, home cook, and aspiring SwiftUI developer passionate about electric vehicles, solar energy, heat pumps, and dishwashers/,
+			),
+		).toBeInTheDocument();
 	});
 
 	it('lists the upcoming sections', () => {

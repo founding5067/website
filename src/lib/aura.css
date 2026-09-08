@@ -5,10 +5,8 @@
    trig waves onto a canvas and upscales it, which
    is what gives it that soft blobby look. We fake
    that with big soft radial-gradients in the same
-   orange/yellow/blue palette, drifting slowly via
-   transform (composited on the GPU, so it's cheap).
+   orange/yellow/blue palette, held still (no animation).
 
-   Tweak the variables below to taste.
    ============================================ */
 
 :root {
@@ -26,12 +24,17 @@ html {
 }
 
 body {
-	font-family: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+	font-family:
+		system-ui,
+		-apple-system,
+		'Segoe UI',
+		Roboto,
+		sans-serif;
 	color: var(--ink);
 	margin: 0;
 }
 
-/* The drifting aurora: fixed to the viewport, behind all content */
+/* The static aurora: fixed to the viewport, behind all content */
 body::before {
 	content: '';
 	position: fixed;
@@ -44,9 +47,12 @@ body::before {
 	opacity: 0.55;
 	background:
 		radial-gradient(55rem 40rem at 50% 0%, var(--aura-orange), transparent 70%),
-		radial-gradient(65rem 45rem at 85% -10%, var(--aura-yellow), transparent 70%),
+		radial-gradient(
+			65rem 45rem at 85% -10%,
+			var(--aura-yellow),
+			transparent 70%
+		),
 		radial-gradient(75rem 55rem at 15% 25%, var(--aura-blue), transparent 70%);
-	animation: aura-drift 2s ease-in-out infinite alternate;
 }
 
 /* The original melts the bottom of the aurora into solid cream —
@@ -61,26 +67,4 @@ body::after {
 	z-index: -1;
 	pointer-events: none;
 	background: linear-gradient(to bottom, transparent 20%, var(--bg) 75%);
-}
-
-@keyframes aura-drift {
-	0% {
-		transform: translate3d(0, 0, 0) scale(1);
-	}
-	33% {
-		transform: translate3d(-4%, 3%, 0) scale(1.12);
-	}
-	66% {
-		transform: translate3d(3%, -2%, 0) scale(1.05);
-	}
-	100% {
-		transform: translate3d(-2%, 1%, 0) scale(1.18);
-	}
-}
-
-/* Respect the OS "reduce motion" setting */
-@media (prefers-reduced-motion: reduce) {
-	body::before {
-		animation: none;
-	}
 }

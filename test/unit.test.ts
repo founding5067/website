@@ -20,7 +20,9 @@ describe('home page', () => {
 
 	it('sets the page title in the head', () => {
 		render(Page);
-		expect(document.title).toBe('Cole — lifelong gamer, and software developer');
+		expect(document.title).toBe(
+			'Cole — lifelong gamer, and software developer',
+		);
 	});
 
 	it('lists the upcoming sections', () => {
@@ -40,9 +42,12 @@ describe('page options', () => {
 describe('greeting audio', () => {
 	it('plays the greeting audio when Greetings is clicked', async () => {
 		const play = vi.fn().mockResolvedValue(undefined);
-		vi.stubGlobal('Audio', class {
-			play = play;
-		});
+		vi.stubGlobal(
+			'Audio',
+			class {
+				play = play;
+			},
+		);
 
 		const { getByRole } = render(Page);
 

@@ -44,10 +44,10 @@ body::before {
 	pointer-events: none;
 	opacity: 0.55;
 	background:
-		radial-gradient(55rem 40rem at 15% 0%, var(--aura-orange), transparent 70%),
-		radial-gradient(65rem 45rem at 75% -10%, var(--aura-yellow), transparent 70%),
-		radial-gradient(75rem 55rem at 45% 25%, var(--aura-blue), transparent 70%);
-	animation: aura-drift 24s ease-in-out infinite alternate;
+		radial-gradient(55rem 40rem at 50% 0%, var(--aura-orange), transparent 70%),
+		radial-gradient(65rem 45rem at 85% -10%, var(--aura-yellow), transparent 70%),
+		radial-gradient(75rem 55rem at 15% 25%, var(--aura-blue), transparent 70%);
+	animation: aura-drift 2s ease-in-out infinite alternate;
 }
 
 /* The original melts the bottom of the aurora into solid cream —

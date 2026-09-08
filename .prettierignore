@@ -1,0 +1,13 @@
+# Dependencies
+node_modules
+
+# Generated output (SvelteKit / Vite / adapters)
+.svelte-kit
+build
+.output
+.vercel
+.netlify
+.wrangler
+
+# Auto-managed lockfile (let npm own it)
+package-lock.json

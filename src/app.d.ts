@@ -8,3 +8,9 @@ declare module '*.svg' {
 	const src: string;
 	export default src;
 }
+
+// Vite asset import (the greeting audio in +page.svelte)
+declare module '*.mp3' {
+	const src: string;
+	export default src;
+}

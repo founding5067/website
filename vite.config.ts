@@ -10,16 +10,16 @@ const config = defineConfig({
 			// Svelte 5's runes mode is enabled by default.
 			// @see https://svelte.dev/docs/svelte/transitioning-to-5#runes_are_now_default
 			compilerOptions: {
-				runes: true
+				runes: true,
 			},
 
 			adapter: adapter({
 				pages: 'build',
 				assets: 'build',
-				strict: false
-			})
+				strict: false,
+			}),
 		}),
-		tailwindcss()
+		tailwindcss(),
 	],
 
 	resolve: {
@@ -29,15 +29,15 @@ const config = defineConfig({
 		// @testing-library/svelte would import the server build (whose
 		// mount() throws). Adding it here makes Svelte resolve to the
 		// client build, as it does in a real browser.
-		conditions: ['browser']
+		conditions: ['browser'],
 	},
 
 	test: {
 		include: ['**/*.{test,spec}.{js,ts}'],
 		setupFiles: ['./test/setup.ts'],
 		environment: 'jsdom',
-		root: './'
-	}
+		root: './',
+	},
 });
 
 export default config;

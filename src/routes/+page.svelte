@@ -40,26 +40,6 @@
 </main>
 
 <style>
-	.page {
-		flex: 1;
-		display: grid;
-		place-items: center;
-		padding: 4rem 1.5rem;
-	}
-
-	.inner {
-		max-width: 40rem;
-		text-align: center;
-	}
-
-	.kicker {
-		margin: 0 0 0.5rem;
-		font-size: 1.125rem;
-		font-weight: 500;
-		letter-spacing: 0.02em;
-		color: var(--ink-soft);
-	}
-
 	.greet {
 		display: inline;
 		padding: 0;

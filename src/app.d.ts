@@ -3,7 +3,7 @@
 
 declare module '@sveltejs/kit';
 
-// Vite asset imports (the favicon in +layout.svelte)
+// Vite asset imports (the favicon in navbar.svelte)
 declare module '*.svg' {
 	const src: string;
 	export default src;

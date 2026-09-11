@@ -1,0 +1,40 @@
+/* ============================================
+   Component Styles — Reusable Patterns & Utilities
+   Import this alongside global.css for consistent patterns
+   ============================================ */
+
+/* Base page layout utility — use with specific padding modifier */
+.page {
+	flex: 1;
+	display: grid;
+	place-items: center;
+	padding: 4rem 1.5rem;
+}
+
+/* Kicker — introductory text before headings (used on home & projects pages) */
+.kicker {
+	margin: 0 0 0.5rem;
+	font-size: 1.125rem;
+	font-weight: 500;
+	letter-spacing: 0.02em;
+	color: var(--ink-soft);
+}
+
+/* Card base utility — shared card styling for list items */
+.card {
+	display: block;
+	padding: 1.25rem;
+	border: 1px solid rgba(68, 64, 60, 0.25);
+	border-radius: 12px;
+	background: rgba(255, 242, 245, 0.45);
+	text-align: left;
+	color: inherit;
+	text-decoration: none;
+}
+
+/* Card hover state — shared interaction feedback */
+.card:hover,
+.card:focus-visible {
+	border-color: rgba(68, 64, 60, 0.5);
+	transform: translateY(-2px);
+}

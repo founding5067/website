@@ -1,0 +1,79 @@
+/* ============================================
+   Global Styles — Site-Wide Reset, Colors & Layout
+   Import this in +layout.svelte for consistent styling
+   ============================================ */
+
+@import 'tailwindcss';
+
+/* Color variables (moved from aura.css) */
+:root {
+	--ink: #44403c;
+	--ink-soft: #57534e;
+	--ink-faint: #78716c;
+	--aura-blue: #0066cc; /* Added for focus ring styling */
+}
+
+html {
+	background-color: hsl(36, 31%, 90%); /* warm cream */
+}
+
+body {
+	font-family:
+		system-ui,
+		-apple-system,
+		'Segoe UI',
+		Roboto,
+		sans-serif;
+	color: var(--ink);
+	margin: 0;
+}
+
+/* The static aurora — fixed to viewport, behind all content */
+body::before {
+	content: '';
+	position: fixed;
+	inset: 0;
+	z-index: -1;
+	pointer-events: none;
+	opacity: 0.55;
+	background:
+		radial-gradient(55rem 40rem at 50% 0%, hsl(25, 90%, 60%), transparent 70%),
+		radial-gradient(
+			65rem 45rem at 85% -10%,
+			hsl(48, 95%, 65%),
+			transparent 70%
+		),
+		radial-gradient(75rem 55rem at 15% 25%, hsl(215, 75%, 62%), transparent 70%);
+}
+
+/* Melts bottom of aurora into solid cream */
+body::after {
+	content: '';
+	position: fixed;
+	inset: 0;
+	z-index: -1;
+	pointer-events: none;
+	background: linear-gradient(
+		to bottom,
+		transparent 20%,
+		hsl(36, 31%, 90%) 75%
+	);
+}
+
+/* Navigation pills — site-wide navigation styling */
+.pill {
+	padding: 0.4rem 0.9rem;
+	border: 1px solid rgba(68, 64, 60, 0.25);
+	border-radius: 999px;
+	background: rgba(255, 242, 245, 0.45);
+	font-size: 0.875rem;
+	font-weight: 500;
+	color: var(--ink-soft);
+	text-decoration: none;
+}
+
+.pill:hover,
+.pill:focus-visible {
+	color: var(--ink);
+	text-decoration: underline;
+}

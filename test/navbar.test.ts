@@ -1,7 +1,7 @@
 import { within } from '@testing-library/dom';
-import { fireEvent, render, waitFor } from '@testing-library/svelte';
+import { render } from '@testing-library/svelte';
 import type { Snippet } from 'svelte';
-import { afterEach, describe, expect, it, vi } from 'vitest';
+import { describe, expect, it } from 'vitest';
 import Navbar from '../src/routes/navbar.svelte';
 import * as pageOptions from '../src/routes/+page';
 

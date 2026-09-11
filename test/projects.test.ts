@@ -1,7 +1,5 @@
-import { within } from '@testing-library/dom';
-import { fireEvent, render, waitFor } from '@testing-library/svelte';
-import type { Snippet } from 'svelte';
-import { afterEach, describe, expect, it, vi } from 'vitest';
+import { render } from '@testing-library/svelte';
+import { describe, expect, it } from 'vitest';
 import * as projectsPageOptions from '../src/routes/projects/+page';
 import ProjectsPage from '../src/routes/projects/+page.svelte';
 

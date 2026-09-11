@@ -1,7 +1,85 @@
-import { fireEvent, render } from '@testing-library/svelte';
-import { describe, expect, it } from 'vitest';
+import { within } from '@testing-library/dom';
+import { fireEvent, render, waitFor } from '@testing-library/svelte';
+import type { Snippet } from 'svelte';
+import { afterEach, describe, expect, it, vi } from 'vitest';
+import Layout from '../src/routes/+layout.svelte';
+import * as pageOptions from '../src/routes/+page';
+import Page from '../src/routes/+page.svelte';
+import * as projectsPageOptions from '../src/routes/projects/+page';
+import ProjectsPage from '../src/routes/projects/+page.svelte';
 import * as evCalculatorPageOptions from '../src/routes/projects/electricVehicleCalculator/+page';
 import EvCalculatorPage from '../src/routes/projects/electricVehicleCalculator/+page.svelte';
+
+describe('home page', () => {
+	it('renders the name in the heading', () => {
+		const { getByRole } = render(Page);
+		expect(getByRole('heading', { level: 1 })).toHaveTextContent('Cole');
+	});
+
+	it('renders the tagline', () => {
+		const { getByText } = render(Page);
+		expect(
+			getByText(
+				/lifelong gamer, and software developer passionate about electric vehicles, solar energy, heat pumps, and dishwashers/,
+			),
+		).toBeInTheDocument();
+	});
+
+	it('sets the page title in the head', () => {
+		render(Page);
+		expect(document.title).toBe(
+			'Cole — lifelong gamer, and software developer',
+		);
+	});
+});
+
+describe('layout', () => {
+	it('links the home page in the nav bar', () => {
+		const { getByRole } = render(Layout, {
+			children: (() => '') as unknown as Snippet,
+		});
+		const nav = getByRole('navigation', { name: 'Main' });
+		expect(within(nav).getByRole('link', { name: 'Home' })).toHaveAttribute(
+			'href',
+			'/',
+		);
+	});
+
+	it('links to the projects page in the nav bar', () => {
+		const { getByRole } = render(Layout, {
+			children: (() => '') as unknown as Snippet,
+		});
+		const nav = getByRole('navigation', { name: 'Main' });
+		expect(within(nav).getByRole('link', { name: 'Projects' })).toHaveAttribute(
+			'href',
+			'/projects',
+		);
+	});
+});
+
+describe('page options', () => {
+	it('is prerendered into static HTML', () => {
+		expect(pageOptions.prerender).toBe(true);
+	});
+});
+
+describe('projects page', () => {
+	it('renders the heading', () => {
+		const { getByRole } = render(ProjectsPage);
+		expect(getByRole('heading', { level: 1 })).toHaveTextContent('Projects');
+	});
+
+	it('is prerendered into static HTML', () => {
+		expect(projectsPageOptions.prerender).toBe(true);
+	});
+
+	it('links to each project', () => {
+		const { getByRole } = render(ProjectsPage);
+		expect(
+			getByRole('link', { name: /electric vehicle charging calculator/i }),
+		).toHaveAttribute('href', '/projects/electricVehicleCalculator');
+	});
+});
 
 describe('electric vehicle calculator page', () => {
 	it('renders the heading', () => {
@@ -85,5 +163,27 @@ describe('electric vehicle calculator page', () => {
 	it('disclaims that the estimate is rough', () => {
 		const { getByText } = render(EvCalculatorPage);
 		expect(getByText(/rough calculation/)).toBeInTheDocument();
+	});
+});
+
+describe('greeting audio', () => {
+	it('plays the greeting audio when Greetings is clicked', async () => {
+		const play = vi.fn().mockResolvedValue(undefined);
+		vi.stubGlobal(
+			'Audio',
+			class {
+				play = play;
+			},
+		);
+
+		const { getByRole } = render(Page);
+
+		await fireEvent.click(getByRole('button'));
+
+		await waitFor(() => expect(play).toHaveBeenCalledTimes(1));
+	});
+
+	afterEach(() => {
+		vi.unstubAllGlobals();
 	});
 });

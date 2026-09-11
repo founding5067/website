@@ -15,6 +15,7 @@
 
 - Use TypeScript
 - TypeScript strict mode
+- Unit tests should be for each page seperatly, with function tests cases encased in their own describe blocks
 
 ## Housekeeping
 

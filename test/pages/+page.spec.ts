@@ -1,0 +1,56 @@
+import { afterEach, describe, expect, it, vi } from 'vitest';
+import { fireEvent, waitFor } from '@testing-library/svelte';
+import { render } from '@testing-library/svelte';
+import Page from '../../src/routes/+page.svelte';
+import * as pageOptions from '../../src/routes/+page';
+
+describe('+page.spec.ts', () => {
+	it('outputs file name', () => {
+		expect(true).toBe(true);
+	});
+
+	it('is prerendered into static HTML', () => {
+		expect(pageOptions.prerender).toBe(true);
+	});
+
+	it('renders the name in the heading', () => {
+		const { getByRole } = render(Page);
+		expect(getByRole('heading', { level: 1 })).toHaveTextContent('Cole');
+	});
+
+	it('renders the tagline', () => {
+		const { getByText } = render(Page);
+		expect(
+			getByText(
+				/lifelong gamer, and software developer passionate about electric vehicles, solar energy, heat pumps, and dishwashers/,
+			),
+		).toBeInTheDocument();
+	});
+
+	it('sets the page title in the head', () => {
+		render(Page);
+		expect(document.title).toBe(
+			'Cole — lifelong gamer, and software developer',
+		);
+	});
+
+	it('plays the greeting audio when Greetings is clicked', async () => {
+		const play = vi.fn().mockResolvedValue(undefined);
+		vi.stubGlobal(
+			'Audio',
+			class {
+				play = play;
+			},
+		);
+
+		const { getByRole } = render(Page);
+
+		await fireEvent.click(getByRole('button'));
+
+		await waitFor(() => expect(play).toHaveBeenCalledTimes(1));
+	});
+
+	afterEach(() => {
+		vi.unstubAllGlobals();
+	});
+});

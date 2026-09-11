@@ -3,7 +3,11 @@ import { render, fireEvent, waitFor } from '@testing-library/svelte';
 import EvCalculatorPage from '../../src/routes/projects/electricVehicleCalculator/+page.svelte';
 import * as evCalculatorPageOptions from '../../src/routes/projects/electricVehicleCalculator/+page';
 
-describe('electric vehicle calculator page', () => {
+describe('calculator.spec.ts', () => {
+	it('outputs file name', () => {
+		expect(true).toBe(true);
+	});
+
 	it('renders the heading', () => {
 		const { getByRole } = render(EvCalculatorPage);
 		expect(getByRole('heading', { level: 1 })).toHaveAccessibleName(
@@ -85,5 +89,51 @@ describe('electric vehicle calculator page', () => {
 	it('disclaims that the estimate is rough', () => {
 		const { getByText } = render(EvCalculatorPage);
 		expect(getByText(/rough calculation/)).toBeInTheDocument();
+	});
+
+	it('does not mis-store a value typed down to 1 in kW mode', async () => {
+		const { getByLabelText, getByText } = render(EvCalculatorPage);
+		await fireEvent.input(getByLabelText(/battery capacity/i), {
+			target: { value: '77' },
+		});
+		// Enter 2000 W -> field flips to show "2" kW (stored as 2000 W).
+		await fireEvent.input(getByLabelText(/charging speed/i), {
+			target: { value: '2000' },
+		});
+		expect(getByText('kW')).toBeInTheDocument();
+		// Edit the displayed "2" down to "1": must stay 1 kW (1000 W), not flip
+		// to 1 W. With the old `value > 1` guard it would wrongly become 1 W.
+		await fireEvent.input(getByLabelText(/charging speed/i), {
+			target: { value: '1' },
+		});
+		// Stored as exactly 1000 W, so the unit flips back to "W" (1000 is not
+		// > 1000) and shows "1000", NOT a nonsensical single watt.
+		expect(getByText('W')).toBeInTheDocument();
+		const input = getByLabelText(/charging speed/i);
+		expect(input).toHaveDisplayValue('1000');
+		// 77 kWh / 1 kW = 77 h, NOT the absurd 77000 h from a 1 W mis-store.
+		const time = getByText(/≈ \d+ h/);
+		expect(time).toHaveTextContent('77 h');
+	});
+
+	it('scales any kW-mode value (including <= 1) by 1000', async () => {
+		const { getByLabelText, getByText } = render(EvCalculatorPage);
+		await fireEvent.input(getByLabelText(/battery capacity/i), {
+			target: { value: '77' },
+		});
+		// Enter a large watt value to switch into kW mode.
+		await fireEvent.input(getByLabelText(/charging speed/i), {
+			target: { value: '5000' },
+		});
+		expect(getByText('kW')).toBeInTheDocument();
+		// Now type 0.5 in kW -> must store 500 W, not 0.5 W.
+		await fireEvent.input(getByLabelText(/charging speed/i), {
+			target: { value: '0.5' },
+		});
+		// Stored as exactly 500 W (not 0.5 W): 77 kWh / 0.5 kW = 154 h.
+		const input = getByLabelText(/charging speed/i);
+		expect(input).toHaveDisplayValue('500');
+		const time = getByText(/≈ \d+ h/);
+		expect(time).toHaveTextContent('154 h');
 	});
 });

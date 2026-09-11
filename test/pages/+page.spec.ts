@@ -4,13 +4,15 @@ import { render } from '@testing-library/svelte';
 import Page from '../../src/routes/+page.svelte';
 import * as pageOptions from '../../src/routes/+page';
 
-describe('page options', () => {
+describe('+page.spec.ts', () => {
+	it('outputs file name', () => {
+		expect(true).toBe(true);
+	});
+
 	it('is prerendered into static HTML', () => {
 		expect(pageOptions.prerender).toBe(true);
 	});
-});
 
-describe('home page', () => {
 	it('renders the name in the heading', () => {
 		const { getByRole } = render(Page);
 		expect(getByRole('heading', { level: 1 })).toHaveTextContent('Cole');
@@ -31,9 +33,7 @@ describe('home page', () => {
 			'Cole — lifelong gamer, and software developer',
 		);
 	});
-});
 
-describe('greeting audio', () => {
 	it('plays the greeting audio when Greetings is clicked', async () => {
 		const play = vi.fn().mockResolvedValue(undefined);
 		vi.stubGlobal(

@@ -3,7 +3,11 @@ import { render } from '@testing-library/svelte';
 import ProjectsPage from '../../src/routes/projects/+page.svelte';
 import * as projectsPageOptions from '../../src/routes/projects/+page';
 
-describe('projects page', () => {
+describe('projects.spec.ts', () => {
+	it('outputs file name', () => {
+		expect(true).toBe(true);
+	});
+
 	it('renders the heading', () => {
 		const { getByRole } = render(ProjectsPage);
 		expect(getByRole('heading', { level: 1 })).toHaveTextContent('Projects');

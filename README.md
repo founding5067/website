@@ -75,6 +75,7 @@ bun run format
 ## CI/CD
 
 GitHub Actions workflows:
+
 - `pr-check.yml` - Runs on PRs (build + test)
 - `static.yml` - Deploys to Netlify/Vercel from main branch
 

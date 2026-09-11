@@ -4,7 +4,11 @@ import { render } from '@testing-library/svelte';
 import type { Snippet } from 'svelte';
 import Layout from '../../src/routes/+layout.svelte';
 
-describe('layout', () => {
+describe('layout.spec.ts', () => {
+	it('outputs file name', () => {
+		expect(true).toBe(true);
+	});
+
 	it('links the home page in the nav bar', () => {
 		const { getByRole } = render(Layout, {
 			children: (() => '') as unknown as Snippet,

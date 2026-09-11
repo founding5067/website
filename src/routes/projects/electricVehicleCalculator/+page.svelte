@@ -45,8 +45,10 @@
 			chargingWatts = 0;
 			return;
 		}
-		// Store in watts, display in kW if over 1000W
-		if (showKW && value > 1) {
+		// Store in watts, display in kW if over 1000W. When the field shows kW
+		// (stored watts > 1000), every typed value is already in kilowatts and must be
+		// scaled up to watts; otherwise store the raw number as watts.
+		if (showKW) {
 			chargingWatts = value * 1000;
 		} else {
 			chargingWatts = value;
@@ -177,33 +179,6 @@
 							)} h
 						</p>
 					</details>
-
-					<label class="field cost-field">
-						<span class="label">Electricity cost per kilowatt-hour</span>
-						<span class="unit">$</span>
-						<input
-							class="input"
-							id="cost-input"
-							type="number"
-							step="0.01"
-							placeholder="e.g., 0.30 or 30"
-							aria-describedby="cost-status"
-							value={electricityCost}
-							oninput={onCostInput}
-						/>
-					</label>
-					{#if cost !== undefined}
-						<p class="result">≈ ${cost.toFixed(2)}</p>
-						<details class="math">
-							<summary class="math-toggle" aria-label="Show the math equation"
-								>Show the math</summary
-							>
-							<p class="formula">
-								{formatNumber(batteryValue)} kWh × {formatNumber(costValue)} $/kWh
-								= `$${cost.toFixed(2)}`
-							</p>
-						</details>
-					{/if}
 				{:else if batteryValue > 0}
 					<p class="hint">Enter a charging speed to see the charge time.</p>
 				{:else}
@@ -212,6 +187,42 @@
 					</p>
 				{/if}
 
+				{#if batteryValue > 0 && chargeHours !== undefined}
+					<!-- Kept out of the shared aria-live region so typing here does not
+					     re-announce each keystroke. The computed result still lives in its
+					     own polite live wrapper and announces when electricityCost changes. -->
+					<div class="cost-field">
+						<label class="field">
+							<span class="label">Electricity cost per kilowatt-hour</span>
+							<span class="unit">$</span>
+							<input
+								class="input"
+								id="cost-input"
+								type="number"
+								step="0.01"
+								placeholder="e.g., 0.30 or 30"
+								aria-describedby="cost-status"
+								value={electricityCost}
+								oninput={onCostInput}
+							/>
+						</label>
+						<div aria-live="polite">
+							{#if cost !== undefined}
+								<p class="result">≈ ${cost.toFixed(2)}</p>
+								<details class="math">
+									<summary
+										class="math-toggle"
+										aria-label="Show the math equation">Show the math</summary
+									>
+									<p class="formula">
+										{formatNumber(batteryValue)} kWh × {formatNumber(costValue)} $/kWh
+										= `$${cost.toFixed(2)}`
+									</p>
+								</details>
+							{/if}
+						</div>
+					</div>
+				{/if}
 				{#if batteryValue > 0}
 					<div class="gasoline">
 						<p class="result">

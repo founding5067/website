@@ -4,6 +4,12 @@ import { render } from '@testing-library/svelte';
 import Page from '../../src/routes/+page.svelte';
 import * as pageOptions from '../../src/routes/+page';
 
+describe('page options', () => {
+	it('is prerendered into static HTML', () => {
+		expect(pageOptions.prerender).toBe(true);
+	});
+});
+
 describe('home page', () => {
 	it('renders the name in the heading', () => {
 		const { getByRole } = render(Page);

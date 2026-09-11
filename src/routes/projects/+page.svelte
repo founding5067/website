@@ -11,8 +11,7 @@
 		{
 			name: 'Electric Vehicle Charging Calculator',
 			href: '/projects/electricVehicleCalculator',
-			description:
-				'Calculate how long it takes to charge your electric vehicle from empty to full.',
+			description: 'Calculate how long it takes to charge your electric vehicle from empty to full.',
 		},
 	]);
 

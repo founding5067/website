@@ -36,21 +36,12 @@
 			I love to cook and host friends and family with my wife. Online you'll
 			find me in an Overwatch ranked game or a Deep Rock Galactic run.
 		</p>
-
-		<div class="more" aria-label="More coming soon">
-			<p class="more-label">More on the way</p>
-			<ul>
-				<li>Resume</li>
-				<li>Projects</li>
-				<li>Blog</li>
-			</ul>
-		</div>
 	</div>
 </main>
 
 <style>
 	.page {
-		min-height: 100vh;
+		flex: 1;
 		display: grid;
 		place-items: center;
 		padding: 4rem 1.5rem;
@@ -106,39 +97,6 @@
 		margin: 1.25rem auto 0;
 		max-width: 34rem;
 		line-height: 1.6;
-		color: var(--ink-soft);
-	}
-
-	.more {
-		margin-top: 3rem;
-	}
-
-	.more-label {
-		margin: 0 0 0.75rem;
-		font-size: 0.8125rem;
-		font-weight: 600;
-		text-transform: uppercase;
-		letter-spacing: 0.08em;
-		color: var(--ink-faint);
-	}
-
-	.more ul {
-		margin: 0;
-		padding: 0;
-		list-style: none;
-		display: flex;
-		justify-content: center;
-		gap: 0.5rem;
-		flex-wrap: wrap;
-	}
-
-	.more li {
-		padding: 0.4rem 0.9rem;
-		border: 1px solid rgba(68, 64, 60, 0.25);
-		border-radius: 999px;
-		background: rgba(255, 252, 245, 0.45);
-		font-size: 0.875rem;
-		font-weight: 500;
 		color: var(--ink-soft);
 	}
 </style>

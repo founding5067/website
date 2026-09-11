@@ -14,7 +14,7 @@ describe('electric vehicle calculator page', () => {
 	});
 
 	it('is prerendered into static HTML', () => {
-	(expect(evCalculatorPageOptions.prerender)).toBe(true);
+		expect(evCalculatorPageOptions.prerender).toBe(true);
 	});
 
 	it('shows the time to charge from 0 to full', async () => {

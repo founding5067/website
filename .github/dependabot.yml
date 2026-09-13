@@ -1,0 +1,20 @@
+version: 2
+updates:
+  - package-ecosystem: npm
+    directory: /
+    schedule:
+      interval: weekly
+    groups:
+      svelte:
+        patterns:
+          - '@sveltejs/*'
+          - svelte
+          - '@testing-library/svelte'
+          - 'prettier-plugin-svelte'
+      dev-tooling:
+        patterns:
+          - vite
+          - vitest
+          - prettier
+          - jsdom
+          - '@types/*'

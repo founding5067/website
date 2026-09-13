@@ -2,7 +2,7 @@
 	import audioUrl from '$lib/assets/winton-ow-greetings.mp3';
 
 	let name = $state('Cole');
-	let tagline = $state('lifelong gamer, and software developer');
+	let tagline = $state('lifelong gamer and software developer');
 
 	// Kept at component scope so it can replay from the start on each click and
 	// isn't garbage-collected while it plays.

@@ -22,16 +22,14 @@ describe('+page.spec.ts', () => {
 		const { getByText } = render(Page);
 		expect(
 			getByText(
-				/lifelong gamer, and software developer passionate about electric vehicles, solar energy, heat pumps, and dishwashers/,
+				/lifelong gamer and software developer passionate about electric vehicles, solar energy, heat pumps, and dishwashers/,
 			),
 		).toBeInTheDocument();
 	});
 
 	it('sets the page title in the head', () => {
 		render(Page);
-		expect(document.title).toBe(
-			'Cole — lifelong gamer, and software developer',
-		);
+		expect(document.title).toBe('Cole — lifelong gamer and software developer');
 	});
 
 	it('plays the greeting audio when Greetings is clicked', async () => {

@@ -22,7 +22,7 @@ describe('+page.spec.ts', () => {
 		const { getByText } = render(Page);
 		expect(
 			getByText(
-				/lifelong gamer, and software developer passionate about electric vehicles, solar energy, heat pumps, and dishwashers/,
+				/lifelong gamer and software developer passionate about electric vehicles, solar energy, heat pumps, and dishwashers/,
 			),
 		).toBeInTheDocument();
 	});
@@ -30,7 +30,7 @@ describe('+page.spec.ts', () => {
 	it('sets the page title in the head', () => {
 		render(Page);
 		expect(document.title).toBe(
-			'Cole — lifelong gamer, and software developer',
+			'Cole — lifelong gamer and software developer',
 		);
 	});
 

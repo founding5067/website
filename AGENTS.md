@@ -12,11 +12,13 @@ The commands below work with either Bun or Node: `bun install`/`npm install`, an
 
 ## Commands
 
+## Commands
+
 - Install deps: `bun install` (or `npm install`)
 - Start dev server: `vite dev`
 - Build static site: `vite build`, then preview with `vite preview`
 - Run tests: `vitest run`
-- Format / check: `prettier --write .` and `prettier --check .`
+- Format / check: `bun run format` and `bun run format:check`
 
 ## Architecture & conventions
 

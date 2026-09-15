@@ -5,8 +5,6 @@
 		description: string;
 	};
 
-	// Add a new project by appending to this list — each one gets its own
-	// route under src/routes/projects/<project name>/.
 	let projects = $state<Project[]>([
 		{
 			name: 'Electric Vehicle Charging Calculator',

@@ -164,6 +164,46 @@
 			</label>
 
 			<div aria-live="polite">
+				<div>
+					<label class="field">
+						<span class="label">Electricity cost per kilowatt-hour</span>
+						<span class="unit">$</span>
+						<input
+							class="input"
+							id="cost-input"
+							type="number"
+							step="0.01"
+							placeholder="e.g., 0.30 or 30"
+							aria-describedby="cost-status"
+							value={electricityCost}
+							oninput={onCostInput}
+						/>
+					</label>
+				</div>
+			</div>
+		</div>
+
+		<div class="calculator">
+			{#if batteryValue > 0}
+				<div class="gasoline">
+					<p class="result">
+						{batteryValue} kWh battery ≈ {gasolineSummary ?? '—'} ⛽
+						<span class="result-note">of gasoline, energy for energy</span>
+					</p>
+					<details class="math">
+						<summary class="math-toggle" aria-label="Show the math equation"
+							>Show the math</summary
+						>
+						<p class="formula">
+							{formatNumber(batteryValue)} kWh ÷ {KWH_PER_GALLON} kWh/gal = {formatNumber(
+								gasolineGallons ?? 0,
+							)} gal
+						</p>
+					</details>
+				</div>
+			{/if}
+
+			<div aria-live="polite">
 				{#if batteryValue > 0 && chargeHours !== undefined}
 					<p class="result">
 						≈ {formatChargeTime(chargeHours)} 🕐
@@ -179,33 +219,16 @@
 							)} h
 						</p>
 					</details>
-				{:else if batteryValue > 0}
-					<p class="hint">Enter a charging speed to see the charge time.</p>
-				{:else}
-					<p class="hint">
-						Enter a battery size and a charging speed to see the charge time.
-					</p>
 				{/if}
 
 				{#if batteryValue > 0 && chargeHours !== undefined}
 					<div class="cost-field">
-						<label class="field">
+						<div class="field">
 							<span class="label">Electricity cost per kilowatt-hour</span>
-							<span class="unit">$</span>
-							<input
-								class="input"
-								id="cost-input"
-								type="number"
-								step="0.01"
-								placeholder="e.g., 0.30 or 30"
-								aria-describedby="cost-status"
-								value={electricityCost}
-								oninput={onCostInput}
-							/>
-						</label>
+						</div>
 						<div aria-live="polite">
 							{#if cost !== undefined}
-								<p class="result">≈ ${cost.toFixed(2)}</p>
+								<p class="result">≈ 💲{cost.toFixed(2)}</p>
 								<details class="math">
 									<summary
 										class="math-toggle"
@@ -218,24 +241,6 @@
 								</details>
 							{/if}
 						</div>
-					</div>
-				{/if}
-				{#if batteryValue > 0}
-					<div class="gasoline">
-						<p class="result">
-							≈ {gasolineSummary ?? '—'} ⛽
-							<span class="result-note">of gasoline, energy for energy</span>
-						</p>
-						<details class="math">
-							<summary class="math-toggle" aria-label="Show the math equation"
-								>Show the math</summary
-							>
-							<p class="formula">
-								{formatNumber(batteryValue)} kWh ÷ {KWH_PER_GALLON} kWh/gal = {formatNumber(
-									gasolineGallons ?? 0,
-								)} gal
-							</p>
-						</details>
 					</div>
 				{/if}
 			</div>
@@ -373,11 +378,6 @@
 	.formula {
 		margin: 0.25rem 0 0;
 		font-size: 0.875rem;
-		color: var(--ink-faint);
-	}
-	.hint {
-		margin: 0;
-		font-size: 0.9375rem;
 		color: var(--ink-faint);
 	}
 

@@ -392,7 +392,6 @@
 		padding-top: 1rem;
 	}
 	.gasoline {
-		padding-bottom: 1rem;
 		border-bottom: 1px solid rgba(68, 64, 60, 0.15);
 	}
 	.gasoline .math {

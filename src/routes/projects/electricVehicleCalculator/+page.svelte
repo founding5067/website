@@ -1,32 +1,46 @@
 <script lang="ts">
-	let batteryKwh = $state('');
+	// Battery capacity (total size in kWh)
+	let totalCapacityKwh = $state('');
 	let chargingWatts = $state(0);
 	let electricityCost = $state('');
+
+	// New states for start and goal percentage
+	let startPercent = $state(0);
+	let goalPercent = $state(100);
 
 	const KWH_PER_GALLON = 33.7;
 
 	// Unit calculation for display - converts watts to kW if over 1000W
 	const showKW = $derived(chargingWatts > 1000);
 
-	const batteryValue = $derived(
-		batteryKwh && Number.isFinite(Number(batteryKwh)) ? Number(batteryKwh) : 0,
+	const totalCapacity = $derived(
+		totalCapacityKwh && Number.isFinite(Number(totalCapacityKwh))
+			? Number(totalCapacityKwh)
+			: 0,
+	);
+
+	// Calculate the actual energy needed (in kWh) based on the range
+	const neededKwh = $derived(
+		totalCapacity > 0
+			? totalCapacity * ((goalPercent - startPercent) / 100)
+			: 0,
 	);
 
 	const chargeHours = $derived(
-		batteryValue > 0 && chargingWatts > 0
-			? (batteryValue * 1000) / chargingWatts
+		neededKwh > 0 && chargingWatts > 0
+			? neededKwh / (chargingWatts / 1000) // Use kW
 			: undefined,
 	);
 
 	const costValue = $derived(electricityCost ? Number(electricityCost) : 0);
 	const cost = $derived(
-		batteryValue > 0 && Number.isFinite(costValue) && costValue >= 0
-			? batteryValue * costValue
+		neededKwh > 0 && Number.isFinite(costValue) && costValue >= 0
+			? neededKwh * costValue
 			: undefined,
 	);
 
 	const gasolineGallons = $derived(
-		batteryValue > 0 ? batteryValue / KWH_PER_GALLON : undefined,
+		neededKwh > 0 ? neededKwh / KWH_PER_GALLON : undefined,
 	);
 	const gasolineSummary = $derived(
 		gasolineGallons === undefined
@@ -34,8 +48,8 @@
 			: `${formatNumber(gasolineGallons)} gal`,
 	);
 
-	function onBatteryInput(event: Event) {
-		batteryKwh = (event.target as HTMLInputElement).value;
+	function onTotalCapacityInput(event: Event) {
+		totalCapacityKwh = (event.target as HTMLInputElement).value;
 	}
 
 	function onChargingInput(event: Event) {
@@ -55,6 +69,14 @@
 		}
 	}
 
+	function onStartPercentInput(event: Event) {
+		startPercent = Number((event.target as HTMLInputElement).value);
+	}
+
+	function onGoalPercentInput(event: Event) {
+		goalPercent = Number((event.target as HTMLInputElement).value);
+	}
+
 	function onCostInput(event: Event) {
 		electricityCost = (event.target as HTMLInputElement).value;
 	}
@@ -66,8 +88,8 @@
 		return `${wholeHours} h${minutes > 0 ? ` ${minutes} min` : ''}`;
 	}
 
-	function formatNumber(value: number): string {
-		return value.toFixed(3);
+	function formatNumber(value: number, decimals?: number): string {
+		return value.toFixed(decimals ?? 3);
 	}
 </script>
 
@@ -128,13 +150,13 @@
 	<div class="inner">
 		<h1 class="title">Electric Vehicle Charging Calculator</h1>
 		<p class="intro">
-			Calculate how long it takes to charge your electric vehicle from empty to
-			full.
+			Calculate how long it takes to charge your electric vehicle between two
+			percentage points, like from 20% to 80%.
 		</p>
 
 		<div class="calculator">
 			<label class="field">
-				<span class="label">Battery capacity</span>
+				<span class="label">Battery capacity (Total)</span>
 				<input
 					class="input"
 					id="battery-input"
@@ -142,10 +164,40 @@
 					step="0.1"
 					placeholder="e.g., 77"
 					aria-describedby="battery-status"
-					value={batteryKwh}
-					oninput={onBatteryInput}
+					value={totalCapacityKwh}
+					oninput={onTotalCapacityInput}
 				/>
 				<span class="unit">kWh</span>
+			</label>
+
+			<label class="field">
+				<span class="label">Starting charge %</span>
+				<input
+					class="input"
+					id="start-percent-input"
+					type="range"
+					min="0"
+					max="100"
+					step="1"
+					value={startPercent}
+					oninput={onStartPercentInput}
+				/>
+				<span class="unit" id="start-percent-display">{startPercent}%</span>
+			</label>
+
+			<label class="field">
+				<span class="label">Goal charge %</span>
+				<input
+					class="input"
+					id="goal-percent-input"
+					type="range"
+					min="0"
+					max="100"
+					step="1"
+					value={goalPercent}
+					oninput={onGoalPercentInput}
+				/>
+				<span class="unit" id="goal-percent-display">{goalPercent}%</span>
 			</label>
 
 			<label class="field">
@@ -164,66 +216,32 @@
 			</label>
 
 			<div aria-live="polite">
-				{#if batteryValue > 0 && chargeHours !== undefined}
-					<p class="result">
-						≈ {formatChargeTime(chargeHours)} 🕐
-						<span class="result-note">from empty to full</span>
-					</p>
-					<details class="math">
-						<summary class="math-toggle" aria-label="Show the math equation"
-							>Show the math</summary
-						>
-						<p class="formula">
-							{formatNumber(batteryValue)} kWh ÷ {chargingWatts / 1000} kW = {formatNumber(
-								chargeHours,
-							)} h
-						</p>
-					</details>
-				{:else if batteryValue > 0}
-					<p class="hint">Enter a charging speed to see the charge time.</p>
-				{:else}
-					<p class="hint">
-						Enter a battery size and a charging speed to see the charge time.
-					</p>
-				{/if}
+				<div class="cost-field">
+					<label class="field">
+						<span class="label">Electricity cost per kilowatt-hour</span>
+						<span class="unit">$</span>
+						<input
+							class="input"
+							id="cost-input"
+							type="number"
+							step="0.01"
+							placeholder="e.g., 0.30 or 30"
+							aria-describedby="cost-status"
+							value={electricityCost}
+							oninput={onCostInput}
+						/>
+					</label>
+				</div>
+			</div>
+		</div>
 
-				{#if batteryValue > 0 && chargeHours !== undefined}
-					<div class="cost-field">
-						<label class="field">
-							<span class="label">Electricity cost per kilowatt-hour</span>
-							<span class="unit">$</span>
-							<input
-								class="input"
-								id="cost-input"
-								type="number"
-								step="0.01"
-								placeholder="e.g., 0.30 or 30"
-								aria-describedby="cost-status"
-								value={electricityCost}
-								oninput={onCostInput}
-							/>
-						</label>
-						<div aria-live="polite">
-							{#if cost !== undefined}
-								<p class="result">≈ ${cost.toFixed(2)}</p>
-								<details class="math">
-									<summary
-										class="math-toggle"
-										aria-label="Show the math equation">Show the math</summary
-									>
-									<p class="formula">
-										{formatNumber(batteryValue)} kWh × {formatNumber(costValue)} $/kWh
-										= `$${cost.toFixed(2)}`
-									</p>
-								</details>
-							{/if}
-						</div>
-					</div>
-				{/if}
-				{#if batteryValue > 0}
+		{#if totalCapacity > 0}
+			<div class="calculator">
+				{#if neededKwh > 0}
 					<div class="gasoline">
 						<p class="result">
-							≈ {gasolineSummary ?? '—'} ⛽
+							{formatNumber(neededKwh, 2)} kWh battery ≈ {gasolineSummary ??
+								'—'} ⛽
 							<span class="result-note">of gasoline, energy for energy</span>
 						</p>
 						<details class="math">
@@ -231,23 +249,69 @@
 								>Show the math</summary
 							>
 							<p class="formula">
-								{formatNumber(batteryValue)} kWh ÷ {KWH_PER_GALLON} kWh/gal = {formatNumber(
-									gasolineGallons ?? 0,
-								)} gal
+								{formatNumber(neededKwh)} kWh needed ÷ {KWH_PER_GALLON} kWh/gal =
+								{formatNumber(gasolineGallons ?? 0)} gal
 							</p>
 						</details>
 					</div>
 				{/if}
+
+				<div aria-live="polite">
+					{#if neededKwh > 0 && chargeHours !== undefined}
+						<p class="result">
+							≈ {formatChargeTime(chargeHours)} 🕐
+							<span class="result-note"
+								>to charge from {startPercent}% to {goalPercent}%</span
+							>
+						</p>
+						<details class="math">
+							<summary class="math-toggle" aria-label="Show the math equation"
+								>Show the math</summary
+							>
+							<p class="formula">
+								{formatNumber(neededKwh)} kWh ÷ {chargingWatts / 1000} kW = {formatNumber(
+									chargeHours,
+								)} h
+							</p>
+						</details>
+					{/if}
+
+					{#if costValue > 0}
+						<div class="cost-field">
+							<div aria-live="polite">
+								{#if cost !== undefined}
+									<p class="result">
+										≈ 💲{cost.toFixed(2)}
+										<span class="result-note"
+											>to fill up {startPercent}% to {goalPercent}%</span
+										>
+									</p>
+									<details class="math">
+										<summary
+											class="math-toggle"
+											aria-label="Show the math equation">Show the math</summary
+										>
+										<p class="formula">
+											{formatNumber(neededKwh)} kWh needed × {formatNumber(
+												costValue,
+											)} $/kWh = `$${cost.toFixed(2)}`
+										</p>
+									</details>
+								{/if}
+							</div>
+						</div>
+					{/if}
+				</div>
 			</div>
-		</div>
+		{/if}
 
 		<p class="disclaimer">
-			This is a rough calculation. It assumes a constant charging rate from
-			empty to full and doesn't account for battery health or degradation,
-			battery or ambient temperature, the vehicle's charging curve and power
-			taper, thermal management, DC fast-charging power limits, firmware limits
-			(like capping at 80%), or any other real-world variable that might affect
-			charging.
+			This is a rough calculation. It assumes a constant charging rate between
+			your specified start and goal percentages and doesn't account for battery
+			health or degradation, battery or ambient temperature, the vehicle's
+			charging curve and power taper, thermal management, DC fast-charging power
+			limits, firmware limits (like capping at 80%), or any other real-world
+			variable that might affect charging.
 		</p>
 
 		<p class="disclaimer">
@@ -328,7 +392,6 @@
 		padding-top: 1rem;
 	}
 	.gasoline {
-		padding-bottom: 1rem;
 		border-bottom: 1px solid rgba(68, 64, 60, 0.15);
 	}
 	.gasoline .math {
@@ -373,11 +436,6 @@
 	.formula {
 		margin: 0.25rem 0 0;
 		font-size: 0.875rem;
-		color: var(--ink-faint);
-	}
-	.hint {
-		margin: 0;
-		font-size: 0.9375rem;
 		color: var(--ink-faint);
 	}
 

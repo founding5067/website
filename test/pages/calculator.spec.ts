@@ -19,10 +19,17 @@ describe('calculator.spec.ts', () => {
 		expect(evCalculatorPageOptions.prerender).toBe(true);
 	});
 
-	it('shows the time to charge from 0 to full', async () => {
+	it('shows the time to charge from 0% to 100% (full cycle)', async () => {
 		const { getByLabelText, getByText } = render(EvCalculatorPage);
-		await fireEvent.input(getByLabelText(/battery capacity/i), {
+		await fireEvent.input(getByLabelText(/battery capacity \(total\)/i), {
 			target: { value: '77' },
+		});
+		// Set start and goal to simulate full cycle
+		await fireEvent.input(getByLabelText(/starting charge %/i), {
+			target: { value: '0' },
+		});
+		await fireEvent.input(getByLabelText(/goal charge %/i), {
+			target: { value: '100' },
 		});
 		await fireEvent.input(getByLabelText(/charging speed/i), {
 			target: { value: '7400' },
@@ -41,10 +48,17 @@ describe('calculator.spec.ts', () => {
 		expect(getByText('kW')).toBeInTheDocument();
 	});
 
-	it('shows the gasoline equivalent of the battery energy', async () => {
+	it('shows the gasoline equivalent for a full charge cycle (0% to 100%)', async () => {
 		const { getByLabelText, getByText } = render(EvCalculatorPage);
-		await fireEvent.input(getByLabelText(/battery capacity/i), {
+		// Set up for full cycle calculation
+		await fireEvent.input(getByLabelText(/battery capacity \(total\)/i), {
 			target: { value: '77' },
+		});
+		await fireEvent.input(getByLabelText(/starting charge %/i), {
+			target: { value: '0' },
+		});
+		await fireEvent.input(getByLabelText(/goal charge %/i), {
+			target: { value: '100' },
 		});
 		expect(getByText(/2\.285 gal ⛽/)).toBeInTheDocument();
 	});
@@ -52,8 +66,14 @@ describe('calculator.spec.ts', () => {
 	it('hides the math equation until it is clicked', async () => {
 		const { getByLabelText, getAllByText, container } =
 			render(EvCalculatorPage);
-		await fireEvent.input(getByLabelText(/battery capacity/i), {
+		await fireEvent.input(getByLabelText(/battery capacity \(total\)/i), {
 			target: { value: '77' },
+		});
+		await fireEvent.input(getByLabelText(/starting charge %/i), {
+			target: { value: '0' },
+		});
+		await fireEvent.input(getByLabelText(/goal charge %/i), {
+			target: { value: '100' },
 		});
 		await fireEvent.input(getByLabelText(/charging speed/i), {
 			target: { value: '7400' },
@@ -64,11 +84,18 @@ describe('calculator.spec.ts', () => {
 		expect((mathBlocks[0] as HTMLDetailsElement).open).toBe(true);
 	});
 
-	it('estimates the cost from the charge time and electricity cost', async () => {
+	it('estimates the cost from the charge time and electricity cost for a full cycle', async () => {
 		const { getByLabelText, getAllByText, container } =
 			render(EvCalculatorPage);
-		await fireEvent.input(getByLabelText(/battery capacity/i), {
+		// Set up for full cycle calculation
+		await fireEvent.input(getByLabelText(/battery capacity \(total\)/i), {
 			target: { value: '77' },
+		});
+		await fireEvent.input(getByLabelText(/starting charge %/i), {
+			target: { value: '0' },
+		});
+		await fireEvent.input(getByLabelText(/goal charge %/i), {
+			target: { value: '100' },
 		});
 		await fireEvent.input(getByLabelText(/charging speed/i), {
 			target: { value: '7400' },
@@ -93,7 +120,7 @@ describe('calculator.spec.ts', () => {
 
 	it('does not mis-store a value typed down to 1 in kW mode', async () => {
 		const { getByLabelText, getByText } = render(EvCalculatorPage);
-		await fireEvent.input(getByLabelText(/battery capacity/i), {
+		await fireEvent.input(getByLabelText(/battery capacity \(total\)/i), {
 			target: { value: '77' },
 		});
 		// Enter 2000 W -> field flips to show "2" kW (stored as 2000 W).
@@ -102,7 +129,7 @@ describe('calculator.spec.ts', () => {
 		});
 		expect(getByText('kW')).toBeInTheDocument();
 		// Edit the displayed "2" down to "1": must stay 1 kW (1000 W), not flip
-		// to 1 W. With the old `value > 1` guard it would wrongly become 1 W.
+		// to 1 W.
 		await fireEvent.input(getByLabelText(/charging speed/i), {
 			target: { value: '1' },
 		});
@@ -118,7 +145,7 @@ describe('calculator.spec.ts', () => {
 
 	it('scales any kW-mode value (including <= 1) by 1000', async () => {
 		const { getByLabelText, getByText } = render(EvCalculatorPage);
-		await fireEvent.input(getByLabelText(/battery capacity/i), {
+		await fireEvent.input(getByLabelText(/battery capacity \(total\)/i), {
 			target: { value: '77' },
 		});
 		// Enter a large watt value to switch into kW mode.

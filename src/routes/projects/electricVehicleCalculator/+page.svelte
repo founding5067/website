@@ -222,7 +222,7 @@
 						</details>
 					{/if}
 
-					{#if batteryValue > 0 && chargeHours !== undefined}
+					{#if costValue > 0}
 						<div class="cost-field">
 							<div class="field">
 								<span class="label">Electricity cost per kilowatt-hour</span>

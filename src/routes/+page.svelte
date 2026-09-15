@@ -4,12 +4,8 @@
 	let name = $state('Cole');
 	let tagline = $state('lifelong gamer and software developer');
 
-	// Kept at component scope so it can replay from the start on each click and
-	// isn't garbage-collected while it plays.
 	let greetingAudio: HTMLAudioElement | undefined;
 
-	// Browsers block autoplay with sound until the user interacts, so let the
-	// user start it by clicking "Greetings".
 	function playGreeting() {
 		const audio = (greetingAudio ??= new Audio(audioUrl));
 		audio.currentTime = 0;

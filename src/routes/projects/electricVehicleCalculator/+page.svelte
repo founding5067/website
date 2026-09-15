@@ -14,12 +14,16 @@
 	const showKW = $derived(chargingWatts > 1000);
 
 	const totalCapacity = $derived(
-		totalCapacityKwh && Number.isFinite(Number(totalCapacityKwh)) ? Number(totalCapacityKwh) : 0,
+		totalCapacityKwh && Number.isFinite(Number(totalCapacityKwh))
+			? Number(totalCapacityKwh)
+			: 0,
 	);
 
 	// Calculate the actual energy needed (in kWh) based on the range
 	const neededKwh = $derived(
-		totalCapacity > 0 ? totalCapacity * ((goalPercent - startPercent) / 100) : 0,
+		totalCapacity > 0
+			? totalCapacity * ((goalPercent - startPercent) / 100)
+			: 0,
 	);
 
 	const chargeHours = $derived(
@@ -236,15 +240,17 @@
 				{#if neededKwh > 0}
 					<div class="gasoline">
 						<p class="result">
-							{formatNumber(neededKwh, 2)} kWh battery ≈ {gasolineSummary ?? '—'} ⛽
+							{formatNumber(neededKwh, 2)} kWh battery ≈ {gasolineSummary ??
+								'—'} ⛽
 							<span class="result-note">of gasoline, energy for energy</span>
 						</p>
 						<details class="math">
-							<summary class="math-toggle" aria-label="Show the math equation">Show the math</summary>
+							<summary class="math-toggle" aria-label="Show the math equation"
+								>Show the math</summary
+							>
 							<p class="formula">
-								{formatNumber(neededKwh)} kWh needed ÷ {KWH_PER_GALLON} kWh/gal = {formatNumber(
-									gasolineGallons ?? 0,
-								)} gal
+								{formatNumber(neededKwh)} kWh needed ÷ {KWH_PER_GALLON} kWh/gal =
+								{formatNumber(gasolineGallons ?? 0)} gal
 							</p>
 						</details>
 					</div>
@@ -254,10 +260,14 @@
 					{#if neededKwh > 0 && chargeHours !== undefined}
 						<p class="result">
 							≈ {formatChargeTime(chargeHours)} 🕐
-							<span class="result-note">to charge from {startPercent}% to {goalPercent}%</span>
+							<span class="result-note"
+								>to charge from {startPercent}% to {goalPercent}%</span
+							>
 						</p>
 						<details class="math">
-							<summary class="math-toggle" aria-label="Show the math equation">Show the math</summary>
+							<summary class="math-toggle" aria-label="Show the math equation"
+								>Show the math</summary
+							>
 							<p class="formula">
 								{formatNumber(neededKwh)} kWh ÷ {chargingWatts / 1000} kW = {formatNumber(
 									chargeHours,
@@ -270,12 +280,17 @@
 						<div class="cost-field">
 							<div aria-live="polite">
 								{#if cost !== undefined}
-									<p class="result">≈ 💲{cost.toFixed(2)}
-									<span class="result-note">to fill up {startPercent}% to {goalPercent}%</span></p>
+									<p class="result">
+										≈ 💲{cost.toFixed(2)}
+										<span class="result-note"
+											>to fill up {startPercent}% to {goalPercent}%</span
+										>
+									</p>
 									<details class="math">
 										<summary
 											class="math-toggle"
-											aria-label="Show the math equation">Show the math</summary>
+											aria-label="Show the math equation">Show the math</summary
+										>
 										<p class="formula">
 											{formatNumber(neededKwh)} kWh needed × {formatNumber(
 												costValue,
@@ -292,11 +307,11 @@
 
 		<p class="disclaimer">
 			This is a rough calculation. It assumes a constant charging rate between
-			your specified start and goal percentages and doesn't account for battery health or degradation,
-			battery or ambient temperature, the vehicle's charging curve and power
-			taper, thermal management, DC fast-charging power limits, firmware limits
-			(like capping at 80%), or any other real-world variable that might affect
-			charging.
+			your specified start and goal percentages and doesn't account for battery
+			health or degradation, battery or ambient temperature, the vehicle's
+			charging curve and power taper, thermal management, DC fast-charging power
+			limits, firmware limits (like capping at 80%), or any other real-world
+			variable that might affect charging.
 		</p>
 
 		<p class="disclaimer">

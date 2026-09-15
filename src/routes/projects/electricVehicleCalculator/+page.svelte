@@ -188,9 +188,6 @@
 				{/if}
 
 				{#if batteryValue > 0 && chargeHours !== undefined}
-					<!-- Kept out of the shared aria-live region so typing here does not
-					     re-announce each keystroke. The computed result still lives in its
-					     own polite live wrapper and announces when electricityCost changes. -->
 					<div class="cost-field">
 						<label class="field">
 							<span class="label">Electricity cost per kilowatt-hour</span>

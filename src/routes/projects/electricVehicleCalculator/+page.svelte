@@ -183,68 +183,71 @@
 			</div>
 		</div>
 
-		<div class="calculator">
-			{#if batteryValue > 0}
-				<div class="gasoline">
-					<p class="result">
-						{batteryValue} kWh battery ≈ {gasolineSummary ?? '—'} ⛽
-						<span class="result-note">of gasoline, energy for energy</span>
-					</p>
-					<details class="math">
-						<summary class="math-toggle" aria-label="Show the math equation"
-							>Show the math</summary
-						>
-						<p class="formula">
-							{formatNumber(batteryValue)} kWh ÷ {KWH_PER_GALLON} kWh/gal = {formatNumber(
-								gasolineGallons ?? 0,
-							)} gal
+		{#if batteryValue > 0}
+			<div class="calculator">
+				{#if batteryValue > 0}
+					<div class="gasoline">
+						<p class="result">
+							{batteryValue} kWh battery ≈ {gasolineSummary ?? '—'} ⛽
+							<span class="result-note">of gasoline, energy for energy</span>
 						</p>
-					</details>
-				</div>
-			{/if}
-
-			<div aria-live="polite">
-				{#if batteryValue > 0 && chargeHours !== undefined}
-					<p class="result">
-						≈ {formatChargeTime(chargeHours)} 🕐
-						<span class="result-note">from empty to full</span>
-					</p>
-					<details class="math">
-						<summary class="math-toggle" aria-label="Show the math equation"
-							>Show the math</summary
-						>
-						<p class="formula">
-							{formatNumber(batteryValue)} kWh ÷ {chargingWatts / 1000} kW = {formatNumber(
-								chargeHours,
-							)} h
-						</p>
-					</details>
-				{/if}
-
-				{#if batteryValue > 0 && chargeHours !== undefined}
-					<div class="cost-field">
-						<div class="field">
-							<span class="label">Electricity cost per kilowatt-hour</span>
-						</div>
-						<div aria-live="polite">
-							{#if cost !== undefined}
-								<p class="result">≈ 💲{cost.toFixed(2)}</p>
-								<details class="math">
-									<summary
-										class="math-toggle"
-										aria-label="Show the math equation">Show the math</summary
-									>
-									<p class="formula">
-										{formatNumber(batteryValue)} kWh × {formatNumber(costValue)} $/kWh
-										= `$${cost.toFixed(2)}`
-									</p>
-								</details>
-							{/if}
-						</div>
+						<details class="math">
+							<summary class="math-toggle" aria-label="Show the math equation"
+								>Show the math</summary
+							>
+							<p class="formula">
+								{formatNumber(batteryValue)} kWh ÷ {KWH_PER_GALLON} kWh/gal = {formatNumber(
+									gasolineGallons ?? 0,
+								)} gal
+							</p>
+						</details>
 					</div>
 				{/if}
+
+				<div aria-live="polite">
+					{#if batteryValue > 0 && chargeHours !== undefined}
+						<p class="result">
+							≈ {formatChargeTime(chargeHours)} 🕐
+							<span class="result-note">from empty to full</span>
+						</p>
+						<details class="math">
+							<summary class="math-toggle" aria-label="Show the math equation"
+								>Show the math</summary
+							>
+							<p class="formula">
+								{formatNumber(batteryValue)} kWh ÷ {chargingWatts / 1000} kW = {formatNumber(
+									chargeHours,
+								)} h
+							</p>
+						</details>
+					{/if}
+
+					{#if batteryValue > 0 && chargeHours !== undefined}
+						<div class="cost-field">
+							<div class="field">
+								<span class="label">Electricity cost per kilowatt-hour</span>
+							</div>
+							<div aria-live="polite">
+								{#if cost !== undefined}
+									<p class="result">≈ 💲{cost.toFixed(2)}</p>
+									<details class="math">
+										<summary
+											class="math-toggle"
+											aria-label="Show the math equation">Show the math</summary
+										>
+										<p class="formula">
+											{formatNumber(batteryValue)} kWh × {formatNumber(
+												costValue,
+											)} $/kWh = `$${cost.toFixed(2)}`
+										</p>
+									</details>
+								{/if}
+							</div>
+						</div>
+					{/if}
+				</div>
 			</div>
-		</div>
+		{/if}
 
 		<p class="disclaimer">
 			This is a rough calculation. It assumes a constant charging rate from

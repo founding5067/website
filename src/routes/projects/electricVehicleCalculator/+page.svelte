@@ -151,7 +151,7 @@
 		<h1 class="title">Electric Vehicle Charging Calculator</h1>
 		<p class="intro">
 			Calculate how long it takes to charge your electric vehicle between two
-			percentage points, like from 20% to 80%.
+			percentage points.
 		</p>
 
 		<div class="calculator">

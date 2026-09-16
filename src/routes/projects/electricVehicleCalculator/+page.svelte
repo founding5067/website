@@ -249,7 +249,7 @@
 								>Show the math</summary
 							>
 							<p class="formula">
-								{formatNumber(neededKwh)} kWh needed ÷ {KWH_PER_GALLON} kWh/gal =
+								{formatNumber(neededKwh)} kWh ÷ {KWH_PER_GALLON} kWh/gal =
 								{formatNumber(gasolineGallons ?? 0)} gal
 							</p>
 						</details>

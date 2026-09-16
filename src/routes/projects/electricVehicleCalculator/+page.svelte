@@ -292,9 +292,9 @@
 											aria-label="Show the math equation">Show the math</summary
 										>
 										<p class="formula">
-											{formatNumber(neededKwh)} kWh needed × {formatNumber(
+											{formatNumber(neededKwh)} kWh × {formatNumber(
 												costValue,
-											)} $/kWh = `$${cost.toFixed(2)}`
+											)} $/kWh = `${cost.toFixed(2)}`
 										</p>
 									</details>
 								{/if}

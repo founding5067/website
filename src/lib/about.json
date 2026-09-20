@@ -1,10 +1,10 @@
 {
-  "name": "Your Name",
+  "name": "Cole Braswell",
   "role": "Software Engineer",
   "bio": "I build thoughtful, user-focused software and share what I learn along the way.",
   "links": [
-    { "label": "GitHub", "url": "https://github.com/your-handle" },
+    { "label": "GitHub", "url": "https://github.com/founding5067" },
     { "label": "Email", "url": "mailto:you@example.com" },
-    { "label": "LinkedIn", "url": "https://linkedin.com/in/your-handle" }
+    { "label": "LinkedIn", "url": "https://www.linkedin.com/in/colebraswell6419" }
   ]
 }

@@ -1,13 +1,166 @@
-/* App-wide stylesheet, imported by +layout.svelte.
-   Tailwind v4 needs no PostCSS config or tailwind.config.js —
-   the Vite plugin (see vite.config.js) generates utilities on the fly. */
+/* Global, minimal styling for the personal site.
+   Adapts to the user's OS color scheme automatically (dark on dark, light on light). */
 
-@import 'tailwindcss';
+:root {
+  --bg: #fafafa;
+  --fg: #1a1a1a;
+  --muted: #6b6b6b;
+  --accent: #2563eb;
+  --border: #e5e5e5;
+  --code-bg: #f0f0f0;
+}
 
-/* Expose the site's ink colors to Tailwind so you can use utilities
-   like `text-ink`, `bg-ink-soft`, `border-ink-faint`. */
-@theme {
-	--color-ink: #44403c;
-	--color-ink-soft: #57534e;
-	--color-ink-faint: #78716c;
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #0f0f10;
+    --fg: #e8e8e8;
+    --muted: #9a9a9a;
+    --accent: #60a5fa;
+    --border: #26262a;
+    --code-bg: #1b1b1e;
+  }
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background: var(--bg);
+  color: var(--fg);
+  font-family:
+    -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial,
+    sans-serif;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+a {
+  color: var(--accent);
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+main {
+  max-width: 640px;
+  margin: 0 auto;
+  padding: 4rem 1.5rem 5rem;
+}
+
+.eyebrow {
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-size: 0.8rem;
+  color: var(--muted);
+  margin: 0 0 0.5rem;
+}
+
+h1 {
+  font-size: clamp(2.2rem, 8vw, 3.2rem);
+  line-height: 1.1;
+  margin: 0 0 1rem;
+  letter-spacing: -0.02em;
+}
+
+h2 {
+  font-size: 1.4rem;
+  margin: 0 0 1.5rem;
+  letter-spacing: -0.01em;
+}
+
+.lead {
+  font-size: 1.15rem;
+  color: var(--muted);
+  max-width: 56ch;
+  margin: 0;
+}
+
+.project-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.project-link {
+  display: block;
+  padding: 1.1rem 1.25rem;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  color: var(--fg);
+  background: color-mix(in srgb, var(--fg) 2%, transparent);
+  transition:
+    transform 0.15s ease,
+    border-color 0.15s ease;
+}
+
+.project-link:hover {
+  text-decoration: none;
+  transform: translateY(-2px);
+  border-color: var(--accent);
+}
+
+.project-title {
+  display: block;
+  font-weight: 650;
+  font-size: 1.1rem;
+  margin-bottom: 0.25rem;
+}
+
+.project-desc {
+  display: block;
+  color: var(--muted);
+  font-size: 0.95rem;
+  margin-bottom: 0.6rem;
+}
+
+.tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+}
+
+.tag {
+  font-size: 0.72rem;
+  color: var(--muted);
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  padding: 0.15rem 0.6rem;
+}
+
+.contact {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-top: 2.5rem;
+  padding-top: 2rem;
+  border-top: 1px solid var(--border);
+}
+
+.contact-link {
+  font-weight: 500;
+}
+
+.copyright {
+  margin-top: 2rem;
+  color: var(--muted);
+  font-size: 0.85rem;
+}
+
+code {
+  background: var(--code-bg);
+  padding: 0.1rem 0.35rem;
+  border-radius: 4px;
+  font-size: 0.9em;
 }

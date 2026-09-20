@@ -1,98 +1,53 @@
-<script lang="ts">
-	import audioUrl from '$lib/assets/winton-ow-greetings.mp3';
+<script>
+	import about from '$lib/about.json';
+	import projects from '$lib/projects.json';
+	import { externalLink } from '$lib/utils.js';
 
-	let name = $state('Cole');
-	let tagline = $state('lifelong gamer and software developer');
-
-	let greetingAudio: HTMLAudioElement | undefined;
-
-	function playGreeting() {
-		const audio = (greetingAudio ??= new Audio(audioUrl));
-		audio.currentTime = 0;
-		audio.play()?.catch?.(() => {});
-	}
+	let year = new Date().getFullYear();
 </script>
 
-<svelte:head>
-	<title>{name} — {tagline}</title>
-	<meta content="{name}'s personal website" name="description" />
-</svelte:head>
-
 <main class="page">
-	<div class="inner">
-		<p class="kicker">
-			<button class="greet" onclick={playGreeting}>Greeeetings</button>, I'm
+	<header class="hero">
+		<p class="eyebrow">{about.role}</p>
+		<h1>{about.name}</h1>
+		<p class="lead">{about.bio}</p>
+	</header>
+
+	<section class="projects">
+		<h2>Projects</h2>
+		<ul class="project-list">
+			{#each projects as project}
+				<li class="project">
+					<a
+						class="project-link"
+						href={project.url}
+						{...externalLink(project.url)}
+					>
+						<span class="project-title">{project.title}</span>
+						<span class="project-desc">{project.description}</span>
+						<span class="tags">
+							{#each project.tags as tag}
+								<span class="tag">{tag}</span>
+							{/each}
+						</span>
+					</a>
+				</li>
+			{/each}
+		</ul>
+	</section>
+
+	<footer class="footer">
+		<nav class="contact">
+			{#each about.links as link}
+				<a
+					class="contact-link"
+					href={link.url}
+					{...externalLink(link.url)}
+				>{link.label}</a>
+			{/each}
+		</nav>
+		<p class="copyright">
+			&copy; {year} {about.name}. Built with SvelteKit.
 		</p>
-		<h1 class="name">{name}</h1>
-		<p class="tagline">
-			A {tagline} passionate about electric vehicles, solar energy, heat pumps, and
-			dishwashers.
-		</p>
-		<p class="bio">
-			I love to cook and host friends and family with my wife. Online you'll
-			find me in an Overwatch ranked game or a Deep Rock Galactic run.
-		</p>
-	</div>
+	</footer>
 </main>
-
-<style>
-	.page {
-		flex: 1;
-		display: grid;
-		place-items: center;
-		padding: 4rem 1.5rem;
-	}
-
-	.inner {
-		max-width: 40rem;
-		text-align: center;
-	}
-
-	.kicker {
-		margin: 0 0 0.5rem;
-		font-size: 1.125rem;
-		font-weight: 500;
-		letter-spacing: 0.02em;
-		color: var(--ink-soft);
-	}
-
-	.greet {
-		display: inline;
-		padding: 0;
-		margin: 0;
-		background: none;
-		border: none;
-		font: inherit;
-		color: inherit;
-		cursor: pointer;
-	}
-
-	.greet:hover,
-	.greet:focus-visible {
-		text-decoration: underline;
-	}
-
-	.name {
-		margin: 0;
-		font-size: clamp(2.75rem, 9vw, 4.5rem);
-		font-weight: 700;
-		letter-spacing: -0.02em;
-		line-height: 1.05;
-		color: hsl(215, 60%, 30%);
-	}
-
-	.tagline {
-		margin: 1.25rem auto 0;
-		max-width: 34rem;
-		font-size: 1.25rem;
-		line-height: 1.55;
-		color: var(--ink);
-	}
-
-	.bio {
-		margin: 1.25rem auto 0;
-		max-width: 34rem;
-		line-height: 1.6;
-		color: var(--ink-soft);
-	}
-</style>

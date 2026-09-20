@@ -3,12 +3,18 @@
     "title": "Electric Vehicle Cost Calculator",
     "description": "Estimate real-world EV running costs based on efficiency, distance, and local energy prices.",
     "url": "https://github.com/your-handle/electric-vehicle-calculator",
-    "tags": ["JavaScript", "Tooling"]
+    "tags": ["JavaScript", "Tooling"],
+    "why": "To understand the real cost of driving an EV versus gas",
+    "stack": "",
+    "skills": []
   },
   {
     "title": "Project Two",
     "description": "Replace this one-line description with a short summary of what the project does.",
     "url": "https://example.com/project-two",
-    "tags": []
+    "tags": [],
+    "why": "Replace this with why you started the project.",
+    "stack": "Replace this with the languages, frameworks, and tools you used.",
+    "skills": ["Replace this list with what building it taught you."]
   }
 ]

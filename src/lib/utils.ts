@@ -9,3 +9,10 @@ export function externalLink(url: string) {
     rel: 'noopener noreferrer nofollow',
   }
 }
+
+// Derive the URL-safe slug used in a project's detail-page route from its URL.
+// e.g. "https://github.com/handle/electric-vehicle-calculator"
+// becomes "electric-vehicle-calculator".
+export function projectSlug(url: string): string {
+  return new URL(url).pathname.split('/').filter(Boolean).pop() ?? url
+}

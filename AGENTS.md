@@ -29,3 +29,4 @@ Deploys to **GitHub Pages** via `.github/workflows/pages-deploy.yml`. It runs `b
 - No semicolons, single quotes, trailing commas (see `.prettierrc`).
 - Keep the design clean and minimal; auto-adapt to the user's color scheme (`prefers-color-scheme`).
 - Outbound links always use `externalLink()` for safe `rel`.
+- Do not make commits yourself

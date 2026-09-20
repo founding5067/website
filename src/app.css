@@ -122,7 +122,41 @@ h2 {
   display: block;
   color: var(--muted);
   font-size: 0.95rem;
-  margin-bottom: 0.6rem;
+  margin: 0.4rem 0;
+}
+
+.why,
+.stack {
+  display: block;
+  color: var(--muted);
+  font-size: 0.9rem;
+  margin: 0.4rem 0 0;
+}
+
+.skills {
+  list-style: none;
+  padding: 0;
+  margin: 0.6rem 0 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+}
+
+.skills li {
+  font-size: 0.85rem;
+  color: var(--fg);
+  background: var(--code-bg);
+  border-radius: 6px;
+  padding: 0.1rem 0.5rem;
+}
+
+.arrow {
+  display: inline-block;
+  margin-left: auto;
+  align-self: center;
+  color: var(--muted);
+  font-size: 1.4rem;
+  line-height: 1;
 }
 
 .tags {
@@ -137,6 +171,36 @@ h2 {
   border: 1px solid var(--border);
   border-radius: 999px;
   padding: 0.15rem 0.6rem;
+}
+
+.summary {
+  font-size: 1.2rem;
+  margin: 0 0 2rem;
+}
+
+.skills {
+  padding-left: 1.25rem;
+  margin: 0;
+  color: var(--muted);
+}
+
+.skills li {
+  margin-bottom: 0.4rem;
+}
+
+.detail-actions {
+  margin-top: 3rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--border);
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 1rem;
+}
+
+.detail-actions h3 {
+  font-size: 1.1rem;
+  margin: 0 0 0.5rem;
 }
 
 .contact {

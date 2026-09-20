@@ -24,12 +24,22 @@
 						{...externalLink(project.url)}
 					>
 						<span class="project-title">{project.title}</span>
-						<span class="project-desc">{project.description}</span>
+						<p class="project-desc">{project.description}</p>
+						{#if project.why}<p class="why">Why: {project.why}</p>{/if}
+						{#if project.stack}<p class="stack">What I used: {project.stack}</p>{/if}
+						{#if project.skills && project.skills.length > 0}
+							<ul class="skills">
+								{#each project.skills as skill}
+									<li>{skill}</li>
+								{/each}
+							</ul>
+						{/if}
 						<span class="tags">
 							{#each project.tags as tag}
 								<span class="tag">{tag}</span>
 							{/each}
 						</span>
+						<span class="arrow">→</span>
 					</a>
 				</li>
 			{/each}

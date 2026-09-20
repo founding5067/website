@@ -1,4 +1,13 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="32" height="32">
-  <rect width="32" height="32" rx="7" fill="#2563eb" />
-  <path d="M10 21 L16 9 L22 21 Z" fill="#ffffff" />
+<svg xmlns="http://www.w3.org/2000/svg" width="128" height="128" viewBox="0 0 128 128" role="img" aria-label="CB">
+  <rect width="128" height="128" rx="30" fill="#f97316"/>
+  <text
+    x="64"
+    y="82"
+    font-family="'Helvetica Neue', Arial, BlinkMacSystemFont, sans-serif"
+    font-weight="800"
+    font-size="82"
+    letter-spacing="-8"
+    fill="#ffffff"
+    text-anchor="middle"
+  >CB</text>
 </svg>

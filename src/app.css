@@ -2,22 +2,23 @@
    Adapts to the user's OS color scheme automatically (dark on dark, light on light). */
 
 :root {
-  --bg: #fafafa;
-  --fg: #1a1a1a;
-  --muted: #6b6b6b;
-  --accent: #2563eb;
-  --border: #e5e5e5;
-  --code-bg: #f0f0f0;
+  /* 70s-inspired palette with Mountain Dew Baja Blast teal (#5CCEF5) as accent */
+  --bg: #f6efe2;
+  --fg: #2e261e;
+  --muted: #9c8a74;
+  --accent: #5CCEF5;
+  --border: #d98b5e;
+  --code-bg: #f0b429;
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --bg: #0f0f10;
-    --fg: #e8e8e8;
-    --muted: #9a9a9a;
-    --accent: #60a5fa;
-    --border: #26262a;
-    --code-bg: #1b1b1e;
+    --bg: #121310;
+    --fg: #f2ead6;
+    --muted: #b0a58c;
+    --accent: #5CCEF5;
+    --border: #2f4a46;
+    --code-bg: #24403a;
   }
 }
 
@@ -100,7 +101,7 @@ h2 {
   border: 1px solid var(--border);
   border-radius: 12px;
   color: var(--fg);
-  background: color-mix(in srgb, var(--fg) 2%, transparent);
+  background: color-mix(in srgb, var(--accent) 8%, transparent);
   transition:
     transform 0.15s ease,
     border-color 0.15s ease;

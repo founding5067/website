@@ -1,20 +1,20 @@
 [
   {
     "title": "Electric Vehicle Cost Calculator",
-    "description": "Estimate real-world EV running costs based on efficiency, distance, and local energy prices.",
+    "description": "Estimate EV running costs from efficiency, distance, and local energy prices.",
     "url": "https://founding5067.github.io/Electric-Vehicle-Calculator/",
-    "tags": ["JavaScript", "Tooling"],
-    "why": "To understand the real cost of driving an EV versus gas",
+    "tags": ["Front End", "Local AI Usage"],
+    "why": "Wondering what it really costs to drive an EV vs. gas.",
     "stack": "",
     "skills": []
   },
   {
-    "title": "Project Two",
-    "description": "Replace this one-line description with a short summary of what the project does.",
-    "url": "https://example.com/project-two",
-    "tags": [],
-    "why": "Replace this with why you started the project.",
-    "stack": "Replace this with the languages, frameworks, and tools you used.",
-    "skills": ["Replace this list with what building it taught you."]
+    "title": "Game Time",
+    "description": "A work in progress",
+    "url": "",
+    "tags": ["iOS Development"],
+    "why": "Finally built an app I'd actually want to use.",
+    "stack": "Swift UI, iCloudKit",
+    "skills": []
   }
 ]

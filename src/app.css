@@ -174,36 +174,6 @@ h2 {
   padding: 0.15rem 0.6rem;
 }
 
-.summary {
-  font-size: 1.2rem;
-  margin: 0 0 2rem;
-}
-
-.skills {
-  padding-left: 1.25rem;
-  margin: 0;
-  color: var(--muted);
-}
-
-.skills li {
-  margin-bottom: 0.4rem;
-}
-
-.detail-actions {
-  margin-top: 3rem;
-  padding-top: 1.5rem;
-  border-top: 1px solid var(--border);
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: 1rem;
-}
-
-.detail-actions h3 {
-  font-size: 1.1rem;
-  margin: 0 0 0.5rem;
-}
-
 .contact {
   display: flex;
   flex-wrap: wrap;

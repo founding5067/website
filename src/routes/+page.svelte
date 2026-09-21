@@ -6,14 +6,14 @@
 	let year = new Date().getFullYear();
 </script>
 
-<main class="page">
-	<header class="hero">
+<main>
+	<header>
 		<p class="eyebrow">{about.role}</p>
 		<h1>{about.name}</h1>
 		<p class="lead">{about.bio}</p>
 	</header>
 
-	<section class="projects">
+	<section>
 		<h2>Projects</h2>
 		<ul class="project-list">
 			{#each projects as project}
@@ -46,7 +46,7 @@
 		</ul>
 	</section>
 
-	<footer class="footer">
+	<footer>
 		<nav class="contact">
 			{#each about.links as link}
 				<a

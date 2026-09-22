@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest'
-import { externalLink } from './utils.ts'
+import { externalLink } from './utils'
 
 describe('externalLink', () => {
   it('opens links in a new tab with safe rel attributes', () => {

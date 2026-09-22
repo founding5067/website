@@ -1,7 +1,7 @@
 <script>
 	import about from '$lib/about.json';
 	import projects from '$lib/projects.json';
-	import { externalLink } from '$lib/utils.js';
+	import { externalLink } from '$lib/utils.ts';
 
 	let year = new Date().getFullYear();
 </script>

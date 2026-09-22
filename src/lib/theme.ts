@@ -7,7 +7,7 @@
 /**
  * @returns {string} the new theme ("dark" or "light")
  */
-export function toggleTheme() {
+export function toggleTheme(): string {
   if (typeof document === 'undefined') return 'dark'
   document.documentElement.dataset.theme =
     document.documentElement.dataset.theme === 'dark' ? 'light' : 'dark'

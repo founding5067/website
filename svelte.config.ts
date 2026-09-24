@@ -4,6 +4,12 @@ import { vitePreprocess } from '@sveltejs/vite-plugin-svelte'
 const config = {
   preprocess: vitePreprocess(),
   kit: {
+    // Point Vite's public directory at `src/static` so files placed there
+    // (e.g. the favicon) are copied into the build output root and served at
+    // the site root (`/favicon.svg`), instead of being dropped by the build.
+    // The default resolves to `<root>/static`, which is wrong for the
+    // `src/static` convention, so set it explicitly.
+    files: { assets: 'src/static' },
     adapter: adapterStatic({
       // A single index.html that the browser falls back to for any route not
       // found during prerendering, so client-side navigation never shows a

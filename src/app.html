@@ -1,12 +1,20 @@
 <!doctype html>
-<html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<meta name="viewport" content="width=device-width, initial-scale=1" />
-		<meta name="text-scale" content="scale" />
-		%sveltekit.head%
-	</head>
-	<body data-sveltekit-preload-data="hover">
-		<div style="display: contents">%sveltekit.body%</div>
-	</body>
+<!-- %sveltekit.preview marks the document for the built-in preview mode used by
+`bun run preview`; it is replaced during normal builds and can be left in.
+The initial data-theme seeds dark mode before any JavaScript runs, so the
+page is never briefly un-themed on load. -->
+<html lang="en" class="%sveltekit.preview" data-theme="dark">
+  <head>
+    <meta charset="utf-8" />
+    <link rel="icon" href="/src/static/favicon.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="%sveltekit.headings%" />
+    <title>Cole Braswell - Software Developer</title>
+    <!-- Renders the <head> block SvelteKit generates from the page's <title>. -->
+    %sveltekit.head%
+  </head>
+  <body data-sveltekit-preload-data="hover">
+    <!-- Displays the page content in place: SvelteKit renders into this element. -->
+    <div style="display: contents">%sveltekit.body%</div>
+  </body>
 </html>

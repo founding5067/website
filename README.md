@@ -37,7 +37,3 @@ The GitHub Pages workflow builds and deploys `./build` automatically.
 | `bun run test`         | Run tests (Vitest)           |
 | `bunx svelte-check`    | Type-check (svelte-check)    |
 | `bun run format:check` | Check formatting (Prettier)  |
-
-## License
-
-MIT

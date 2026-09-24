@@ -1,3 +1,9 @@
+/*
+ * Design tokens. Every color in the stylesheet references these custom
+ * properties, so changing a value here updates the whole site. Light values
+ * live on :root and dark values override them under [data-theme='dark'], which
+ * the theme toggle writes to <html data-theme> (see theme.ts and app.html).
+ */
 :root {
   --bg: #f6efe2;
   --fg: #2e261e;
@@ -96,6 +102,8 @@ h2 {
   border: 1px solid var(--border);
   border-radius: 12px;
   color: var(--fg);
+  /* The background blends the accent color into transparency so it adapts
+  to the current theme without needing a separate dark token. */
   background: color-mix(in srgb, var(--accent) 8%, transparent);
   transition:
     transform 0.15s ease,
@@ -103,6 +111,9 @@ h2 {
 }
 
 .project-link:hover {
+  /* Clearing the underline here is intentional: links already have a solid
+  border and a colored background, so the default hover underline would
+  clash with the card design. */
   text-decoration: none;
   transform: translateY(-2px);
   border-color: var(--accent);
@@ -206,11 +217,14 @@ code {
   padding: 0;
   border: 1px solid var(--border);
   border-radius: 999px;
+  /* The background blends the page and text colors so the button stays
+  readable on both the light and dark themes. */
   background: color-mix(in srgb, var(--bg) 65%, var(--fg) 35%);
   color: var(--fg);
   font-size: 1.1rem;
   line-height: 1;
   cursor: pointer;
+  /* grid with place-items centers the single icon inside the square button. */
   display: grid;
   place-items: center;
   transition:
@@ -219,6 +233,8 @@ code {
 }
 
 .sr-only {
+  /* Visually hide an element (the <audio> behind the greeting button) while
+  keeping it in the accessibility tree so assistive tech can still find it. */
   position: absolute;
   width: 1px;
   height: 1px;

@@ -233,7 +233,7 @@ code {
 }
 
 .sr-only {
-  /* Visually hide an element (the <audio> behind the greeting button) while
+  /* Visually hide an element while
   keeping it in the accessibility tree so assistive tech can still find it. */
   position: absolute;
   width: 1px;

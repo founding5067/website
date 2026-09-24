@@ -3,18 +3,22 @@
 	// data-driven: edit the JSON to change who is shown and what links appear.
 	import about from '$lib/about.json';
 	import projects from '$lib/projects.json';
-	import audioUrl from '$lib/assets/winton-ow-greetings.mp3';
+	// Imported into an array so a *different* file plays each click.
+	import greetingAudioUrl from '$lib/assets/winton-ow-greetings.mp3';
+	import hiThereAudioUrl from '$lib/assets/winton-hi-there.mp3';
 	import { externalLink } from '$lib/utils.ts';
 
 	// Year used in the footer copyright line.
 	let year = new Date().getFullYear();
 
-	// Re-requests the greeting audio from the start so a repeated click plays
-	// it again instead of skipping straight to the end of an already-finished
-	// file. The play() rejection is swallowed because not every browser allows
+	// Every click picks a *different* audio file so the greeting never repeats.
+	// The files are imported into an array and one is chosen at random each time.
+	// The play() rejection is swallowed because not every browser allows
 	// autoplay without a user gesture.
+	const greetings = [greetingAudioUrl, hiThereAudioUrl];
+
 	function playGreeting() {
-		let audio = new Audio(audioUrl);
+		const audio = new Audio(greetings[Math.floor(Math.random() * greetings.length)]);
 		audio.currentTime = 0;
 		audio.play().catch(() => {});
 	}
@@ -28,11 +32,6 @@
 		</h1>
 		<p class="lead">{about.bio}</p>
 	</header>
-	 <!-- Hidden audio element that backs the click-to-greet button. The class
-	 removes it from visual flow; preload="none" keeps the file from loading
-	 until the user actually triggers playback. -->
-	<audio class="sr-only" src={audioUrl} preload="none"></audio>
-
 	<section>
 		<h2>Projects</h2>
 		<ul class="project-list">

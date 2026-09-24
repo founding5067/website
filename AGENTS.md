@@ -7,9 +7,9 @@ This is a **personal website** — a single, static page describing who the auth
 ## Stack
 
 - **SvelteKit** (Svelte 5) with **`@sveltejs/adapter-static`** — prerenders the root route to static HTML.
-- **Bun** is the package manager (`packageManager: bun@latest`).
+- **Bun** is the package manager — `bun.lock` is the source of truth (no npm/pnpm/yarn lockfiles exist). The deploy workflow uses `oven-sh/setup-bun`.
 - Content lives in JSON: `src/lib/about.json`, `src/lib/projects.json`. Edit those to update the site — no component changes needed.
-- Build helpers live in `src/lib/utils.js` (e.g. `externalLink`).
+- Build helpers live in `src/lib/utils.ts` (e.g. `externalLink`).
 
 ## Commands
 
@@ -27,6 +27,6 @@ Deploys to **GitHub Pages** via `.github/workflows/pages-deploy.yml`. It runs `b
 ## Conventions
 
 - No semicolons, single quotes, trailing commas (see `.prettierrc`).
-- Keep the design clean and minimal; auto-adapt to the user's color scheme (`prefers-color-scheme`).
+- Keep the design clean and minimal. Dark mode is a **manual toggle**: a button in `src/routes/+layout.svelte` flips an attribute on `<html data-theme>` (see `src/lib/theme.ts`), seeded to `dark` in `src/app.html` so the page is never briefly un-themed on load. There is no automatic `prefers-color-scheme` detection.
 - Outbound links always use `externalLink()` for safe `rel`.
 - Do not make commits yourself

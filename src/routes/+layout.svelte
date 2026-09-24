@@ -2,8 +2,6 @@
 	import '../app.css';
 	import { toggleTheme } from '$lib/theme.ts';
 
-	// Defaults to dark mode; the toggle flips it. Kept in a reactive variable so
-	// the template never touches `document` during server-side rendering.
 	let theme = 'dark';
 	let icon = '🌙';
 

@@ -1,17 +1,27 @@
 <script>
 	import about from '$lib/about.json';
 	import projects from '$lib/projects.json';
+	import audioUrl from '$lib/assets/winton-ow-greetings.mp3';
 	import { externalLink } from '$lib/utils.ts';
 
 	let year = new Date().getFullYear();
+
+	function playGreeting() {
+		let audio = new Audio(audioUrl);
+		audio.currentTime = 0;
+		audio.play().catch(() => {});
+	}
 </script>
 
 <main>
 	<header>
 		<p class="eyebrow">{about.role}</p>
-		<h1>{about.name}</h1>
+		<h1 onclick={playGreeting} role={"button"} aria-label="{about.name} (click to greet)">
+			{about.name}
+		</h1>
 		<p class="lead">{about.bio}</p>
 	</header>
+	<audio class="sr-only" src={audioUrl} preload="none"></audio>
 
 	<section>
 		<h2>Projects</h2>

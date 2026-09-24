@@ -1,53 +1,32 @@
-<script lang="ts">
-	import '../lib/aura.css';
-	import favicon from '$lib/assets/favicon.svg';
+<script>
+	// Imports the theme helper and applies the CSS from app.css to the document.
+	import '../app.css';
+	import { toggleTheme } from '$lib/theme.ts';
 
-	let { children } = $props();
+	// Tracks the currently selected theme and the icon shown on the toggle button.
+	// Starts on 'dark' to match the initial value written in app.html.
+	let theme = 'dark';
+	let icon = '🌙';
+
+	// Switches the theme by flipping the stored value, then updates the icon
+	// so the button always reflects the mode the user last chose.
+	function toggle() {
+		theme = toggleTheme();
+		icon = theme === 'dark' ? '🌙' : '☀️';
+	}
 </script>
 
-<svelte:head>
-	<link rel="icon" href={favicon} />
-</svelte:head>
+<slot />
 
-<div class="shell">
-	<nav class="nav" aria-label="Main">
-		<a class="pill" href="/">Home</a>
-		<a class="pill" href="/projects">Projects</a>
-	</nav>
-	{@render children()}
-</div>
-
-<style>
-	.shell {
-		display: flex;
-		flex-direction: column;
-		min-height: 100vh;
-	}
-
-	.nav {
-		display: flex;
-		justify-content: center;
-		align-items: center;
-		gap: 0.5rem;
-		flex-wrap: wrap;
-		padding: 0.75rem 1.5rem;
-	}
-
-	/* Same pill look as the old "More on the way" list at the bottom */
-	.pill {
-		padding: 0.4rem 0.9rem;
-		border: 1px solid rgba(68, 64, 60, 0.25);
-		border-radius: 999px;
-		background: rgba(255, 252, 245, 0.45);
-		font-size: 0.875rem;
-		font-weight: 500;
-		color: var(--ink-soft);
-		text-decoration: none;
-	}
-
-	.pill:hover,
-	.pill:focus-visible {
-		color: var(--ink);
-		text-decoration: underline;
-	}
-</style>
+<!-- Fixed-position button in the top-right corner. The aria-label stays constant
+for stable screen-reader focus; the title switches so it points toward the
+mode the user is about to enter. -->
+<button
+	type="button"
+	class="theme-toggle"
+	onclick={toggle}
+	aria-label="Toggle dark mode"
+	title={icon === '☀️' ? 'Switch to light mode' : 'Switch to dark mode'}
+>
+	{icon}
+</button>

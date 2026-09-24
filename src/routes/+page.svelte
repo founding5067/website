@@ -1,98 +1,88 @@
-<script lang="ts">
-	import audioUrl from '$lib/assets/winton-ow-greetings.mp3';
+<script>
+	// Content and assets are loaded from JSON/data files so the site stays
+	// data-driven: edit the JSON to change who is shown and what links appear.
+	import about from '$lib/about.json';
+	import projects from '$lib/projects.json';
+	// Imported into an array so a *different* file plays each click.
+	import greetingAudioUrl from '$lib/assets/winton-ow-greetings.mp3';
+	import hiThereAudioUrl from '$lib/assets/winton-hi-there.mp3';
+	import { externalLink } from '$lib/utils.ts';
 
-	let name = $state('Cole');
-	let tagline = $state('lifelong gamer and software developer');
+	// Year used in the footer copyright line.
+	let year = new Date().getFullYear();
 
-	let greetingAudio: HTMLAudioElement | undefined;
+	// Every click picks a *different* audio file so the greeting never repeats.
+	// The files are imported into an array and one is chosen at random each time.
+	// The play() rejection is swallowed because not every browser allows
+	// autoplay without a user gesture.
+	const greetings = [greetingAudioUrl, hiThereAudioUrl];
 
 	function playGreeting() {
-		const audio = (greetingAudio ??= new Audio(audioUrl));
+		const audio = new Audio(greetings[Math.floor(Math.random() * greetings.length)]);
 		audio.currentTime = 0;
-		audio.play()?.catch?.(() => {});
+		audio.play().catch(() => {});
 	}
 </script>
 
-<svelte:head>
-	<title>{name} — {tagline}</title>
-	<meta content="{name}'s personal website" name="description" />
-</svelte:head>
+<main>
+	<header>
+		<p class="eyebrow">{about.role}</p>
+		<h1 onclick={playGreeting} role={"button"} aria-label="{about.name} (click to greet)">
+			{about.name}
+		</h1>
+		<p class="lead">{about.bio}</p>
+	</header>
+	<section>
+		<h2>Projects</h2>
+		<ul class="project-list">
+			{#each projects as project}
+				<li class="project">
+					<a
+						class="project-link"
+						href={project.url}
+						{...externalLink(project.url)}
+					>
+						<span class="project-title">{project.title}</span>
+						<p class="project-desc">{project.description}</p>
+						<!-- Optional fields are only rendered when data is present, so projects
+						that omit them produce cleaner markup instead of empty paragraphs. -->
+						{#if project.why}<p class="why">Why: {project.why}</p>{/if}
+						{#if project.stack}<p class="stack">What I used: {project.stack}</p>{/if}
+						<!-- Render the skills list only when the array exists and is not empty,
+						since an empty array is a valid "no skills" value, not a missing one. -->
+						{#if project.skills && project.skills.length > 0}
+							<ul class="skills">
+								{#each project.skills as skill}
+									<li>{skill}</li>
+								{/each}
+							</ul>
+						{/if}
+						<span class="tags">
+							{#each project.tags as tag}
+								<span class="tag">{tag}</span>
+							{/each}
+						</span>
+						<span class="arrow">→</span>
+					</a>
+				</li>
+			{/each}
+		</ul>
+	</section>
 
-<main class="page">
-	<div class="inner">
-		<p class="kicker">
-			<button class="greet" onclick={playGreeting}>Greeeetings</button>, I'm
+	<footer>
+		<nav class="contact">
+			<!-- One entry per link defined in about.json. Every link is spread with
+			externalLink() so it opens in a new tab with a safe rel. -->
+			{#each about.links as link}
+				<a
+					class="contact-link"
+					href={link.url}
+					{...externalLink(link.url)}
+				>{link.label}</a>
+			{/each}
+		</nav>
+		<p class="copyright">
+			&copy; {year} {about.name}. Built with SvelteKit.
 		</p>
-		<h1 class="name">{name}</h1>
-		<p class="tagline">
-			A {tagline} passionate about electric vehicles, solar energy, heat pumps, and
-			dishwashers.
-		</p>
-		<p class="bio">
-			I love to cook and host friends and family with my wife. Online you'll
-			find me in an Overwatch ranked game or a Deep Rock Galactic run.
-		</p>
-	</div>
+	</footer>
 </main>
-
-<style>
-	.page {
-		flex: 1;
-		display: grid;
-		place-items: center;
-		padding: 4rem 1.5rem;
-	}
-
-	.inner {
-		max-width: 40rem;
-		text-align: center;
-	}
-
-	.kicker {
-		margin: 0 0 0.5rem;
-		font-size: 1.125rem;
-		font-weight: 500;
-		letter-spacing: 0.02em;
-		color: var(--ink-soft);
-	}
-
-	.greet {
-		display: inline;
-		padding: 0;
-		margin: 0;
-		background: none;
-		border: none;
-		font: inherit;
-		color: inherit;
-		cursor: pointer;
-	}
-
-	.greet:hover,
-	.greet:focus-visible {
-		text-decoration: underline;
-	}
-
-	.name {
-		margin: 0;
-		font-size: clamp(2.75rem, 9vw, 4.5rem);
-		font-weight: 700;
-		letter-spacing: -0.02em;
-		line-height: 1.05;
-		color: hsl(215, 60%, 30%);
-	}
-
-	.tagline {
-		margin: 1.25rem auto 0;
-		max-width: 34rem;
-		font-size: 1.25rem;
-		line-height: 1.55;
-		color: var(--ink);
-	}
-
-	.bio {
-		margin: 1.25rem auto 0;
-		max-width: 34rem;
-		line-height: 1.6;
-		color: var(--ink-soft);
-	}
-</style>

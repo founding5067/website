@@ -3,6 +3,7 @@
     "title": "Electric Vehicle Cost Calculator",
     "description": "Estimate EV running costs from efficiency, distance, and local energy prices.",
     "url": "https://founding5067.github.io/Electric-Vehicle-Calculator/",
+    "type": "web app",
     "tags": ["Front End", "Local AI Usage"],
     "why": "Wondering what it really costs to drive an EV vs. gas.",
     "stack": "",
@@ -12,9 +13,20 @@
     "title": "Game Time",
     "description": "A work in progress",
     "url": "",
+    "type": "iOS app",
     "tags": ["iOS Development"],
     "why": "Wanted to build an app I'd use with my friends.",
     "stack": "Swift UI, iCloudKit",
     "skills": []
+  },
+  {
+    "title": "SessionTime",
+    "description": "Human-friendly date/time formatting helpers for Swift — 'In 2h', '5mins ago', '3:30 PM'.",
+    "url": "https://github.com/founding5067/SessionTime",
+    "type": "Swift package",
+    "tags": ["iOS Development", "Swift", "Libraries", "Utility"],
+    "why": "Provide consistent, localized date/time formatting without duplicating DateFormatter setup across your screens. Thread-safe and deterministic output.",
+    "stack": "Swift 6.2+",
+    "skills": ["Swift Development"]
   }
 ]

@@ -24,6 +24,8 @@ This is a **personal website** — a single, static page describing who the auth
 
 Deploys to **GitHub Pages** via `.github/workflows/pages-deploy.yml`. It runs `bun install` → `bun run build` and uploads the **`build/` directory**. Because we use `adapter-static`, the existing pipeline needs **no changes**.
 
+> **Note:** You don't need to run a live server for development. The build creates static files that can be served by any existing server. The README already shows how to run the server with `bun run preview` if needed.
+
 ## Conventions
 
 - No semicolons, single quotes, trailing commas (see `.prettierrc`).

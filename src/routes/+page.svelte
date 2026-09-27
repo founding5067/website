@@ -43,20 +43,12 @@
 						{...externalLink(project.url)}
 					>
 						<span class="project-title">{project.title}</span>
+					{#if project.type}<span class="project-type">{project.type}</span>{/if}
 						<p class="project-desc">{project.description}</p>
 						<!-- Optional fields are only rendered when data is present, so projects
 						that omit them produce cleaner markup instead of empty paragraphs. -->
-						{#if project.why}<p class="why">Why: {project.why}</p>{/if}
-						{#if project.stack}<p class="stack">What I used: {project.stack}</p>{/if}
-						<!-- Render the skills list only when the array exists and is not empty,
-						since an empty array is a valid "no skills" value, not a missing one. -->
-						{#if project.skills && project.skills.length > 0}
-							<ul class="skills">
-								{#each project.skills as skill}
-									<li>{skill}</li>
-								{/each}
-							</ul>
-						{/if}
+						{#if project.why}<div class="why-block"><span class="accent-dot">•</span> <span class="why">Why: {project.why}</span></div>{/if}
+						{#if project.stack}<div class="stack-block"><span class="accent-dot">•</span> <span class="stack">What I used: {project.stack}</span></div>{/if}
 						<span class="tags">
 							{#each project.tags as tag}
 								<span class="tag">{tag}</span>

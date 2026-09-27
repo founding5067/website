@@ -165,6 +165,12 @@ h2 {
   border-radius: 2px;
 }
 
+/* Make accent dot glow in dark mode for better visibility */
+[data-theme='dark'] .accent-dot {
+  color: var(--border);
+  text-shadow: 0 0 2px var(--border);
+}
+
 .arrow {
   position: absolute;
   right: 1.25rem;

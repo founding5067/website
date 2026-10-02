@@ -2,7 +2,7 @@
   {
     "title": "Electric Vehicle Cost Calculator",
     "description": "Estimate EV running costs from efficiency, distance, and local energy prices.",
-    "url": "https://founding5067.github.io/Electric-Vehicle-Calculator/",
+    "url": "https://github.com/founding5067/Electric-Vehicle-Calculator-website",
     "type": "web app",
     "tags": ["Front End", "Local AI Usage"],
     "why": "Wondering what it really costs to drive an EV vs. gas.",

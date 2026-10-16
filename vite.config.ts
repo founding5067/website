@@ -1,5 +1,3 @@
-/// <reference types="vitest/config" />
-
 import { sveltekit } from '@sveltejs/kit/vite'
 import { defineConfig } from 'vite'
 
@@ -13,9 +11,5 @@ export default defineConfig({
     // longer here). Bundling them would slow down dev server startup for no
     // benefit and would force them to be rebuilt on every change.
     exclude: ['firebase', 'tesla', 'vercel'],
-  },
-
-  test: {
-    include: ['src/**/*.{test,spec}.{js,ts}'],
   },
 })

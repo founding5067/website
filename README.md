@@ -7,7 +7,7 @@ A clean, minimal personal website built with **SvelteKit** and
 
 - Single, fast static page (prerendered to HTML at build time).
 - Content is data-driven: edit `src/lib/about.json` and `src/lib/projects.json` to update the site.
-- Automatically adapts to your system's light/dark color scheme.
+- Light/dark mode via a manual toggle (defaults to dark).
 - Safe outbound links (opens in a new tab with `rel="noopener noreferrer nofollow"`).
 - Deployed to GitHub Pages automatically on push to `main`.
 

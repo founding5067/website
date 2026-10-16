@@ -11,10 +11,10 @@ const config = {
     // `src/static` convention, so set it explicitly.
     files: { assets: 'src/static' },
     adapter: adapterStatic({
-      // A single index.html that the browser falls back to for any route not
-      // found during prerendering, so client-side navigation never shows a
-      // blank page before the first load.
-      fallback: 'index.html',
+      // GitHub Pages serves 404.html for unknown paths. Using a name other
+      // than index.html keeps the prerendered root page from being
+      // overwritten by the empty SPA shell.
+      fallback: '404.html',
     }),
     // This is a single, static page — prerender it to HTML at build time.
     // '*' asks SvelteKit to prerender every route it can reach statically;

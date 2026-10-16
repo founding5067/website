@@ -1,5 +1,4 @@
-// @vitest-environment jsdom
-import { describe, it, expect, beforeEach } from 'vitest'
+import { describe, it, expect, beforeEach } from 'bun:test'
 import { toggleTheme } from './theme'
 
 // beforeEach removes any stored theme so each test starts with a clean slate.
@@ -31,6 +30,6 @@ describe('toggleTheme', () => {
   // Verifies the return value matches the value written to <html data-theme>.
   it('returns exactly what it wrote to the <html> dataset', () => {
     const result = toggleTheme()
-    expect(result).toBe(document.documentElement.dataset.theme)
+    expect(document.documentElement.dataset.theme).toBe(result)
   })
 })

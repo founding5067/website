@@ -34,6 +34,6 @@ The GitHub Pages workflow builds and deploys `./build` automatically.
 | `bun run dev`          | Start the dev server         |
 | `bun run build`        | Static production build      |
 | `bun run preview`      | Preview the production build |
-| `bun run test`         | Run tests (Vitest)           |
-| `bunx svelte-check`    | Type-check (svelte-check)    |
+| `bun run test`         | Run tests (Bun)              |
+| `bun run typecheck`    | Type-check (svelte-check)    |
 | `bun run format:check` | Check formatting (Prettier)  |

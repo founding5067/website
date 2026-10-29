@@ -1,12 +1,12 @@
 [
   {
-    "title": "Electric Vehicle Cost Calculator",
-    "description": "Estimate EV running costs from efficiency, distance, and local energy prices.",
-    "url": "https://github.com/founding5067/Electric-Vehicle-Calculator-website",
-    "type": "web app",
-    "tags": ["Front End", "Local AI Usage"],
+    "title": "Cole's EV Calculator",
+    "description": "Estimate EV charge time, miles added and cost, and compare a trip's cost in a gas car vs. an electric car.",
+    "url": "https://apps.apple.com/app/id6824501965",
+    "type": "iOS app",
+    "tags": ["iOS Development"],
     "why": "Wondering what it really costs to drive an EV vs. gas.",
-    "stack": "",
+    "stack": "SwiftUI — iPhone, iPad, Mac",
     "skills": []
   },
   {
@@ -20,13 +20,13 @@
     "skills": []
   },
   {
-    "title": "SessionTime",
-    "description": "Human-friendly date/time formatting helpers for Swift — 'In 2h', '5mins ago', '3:30 PM'.",
-    "url": "https://github.com/founding5067/SessionTime",
+    "title": "TimeLabels",
+    "description": "Short, deterministic date/time labels for Swift UIs — 'In 2h', '5mins ago', '3:30 PM', 'Tomorrow'.",
+    "url": "https://github.com/founding5067/TimeLabels",
     "type": "Swift package",
     "tags": ["iOS Development", "Swift", "Libraries", "Utility"],
-    "why": "Provide consistent, localized date/time formatting without duplicating DateFormatter setup across your screens. Thread-safe and deterministic output.",
-    "stack": "Swift 6.2+",
+    "why": "Turn raw Dates into the short strings a UI needs without duplicating DateFormatter setup across screens. Thread-safe, deterministic output, plus Date extensions and a self-updating SwiftUI TimeLabelText.",
+    "stack": "Swift 6.0+, SwiftUI — iOS, macOS, watchOS, tvOS, visionOS",
     "skills": ["Swift Development"]
   }
 ]

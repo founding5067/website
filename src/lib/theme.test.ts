@@ -1,5 +1,5 @@
 // @vitest-environment jsdom
-import { describe, it, expect, beforeEach } from 'vitest'
+import { describe, it, expect, beforeEach, vi } from 'vitest'
 import { toggleTheme } from './theme'
 
 // beforeEach removes any stored theme so each test starts with a clean slate.
@@ -32,5 +32,16 @@ describe('toggleTheme', () => {
   it('returns exactly what it wrote to the <html> dataset', () => {
     const result = toggleTheme()
     expect(result).toBe(document.documentElement.dataset.theme)
+  })
+
+  // Verifies server-side rendering (no `document`) falls back to 'dark'
+  // without touching the DOM.
+  it('returns dark when document is undefined', () => {
+    vi.stubGlobal('document', undefined)
+    try {
+      expect(toggleTheme()).toBe('dark')
+    } finally {
+      vi.unstubAllGlobals()
+    }
   })
 })

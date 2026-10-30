@@ -282,7 +282,7 @@ code {
   font-size: 0.9em;
 }
 
-/* Decorative strips fixed to both page edges, behind the content. */
+/* Decorative motifs, one per page edge, behind the content. */
 .backdrop {
   position: fixed;
   inset: 0;
@@ -290,20 +290,23 @@ code {
   z-index: 0;
 }
 
-.backdrop-strip {
+/* Each motif fills its margin from the top of the window to the bottom. */
+.backdrop-art {
   position: absolute;
   top: 0;
+  width: min(200px, calc((100vw - 680px) / 2 - 2rem));
   height: 100%;
-  width: calc((100vw - 680px) / 2);
   opacity: 0.18;
 }
 
-.backdrop-strip.left {
-  left: 0;
+.backdrop-art.left {
+  left: 1rem;
 }
 
-.backdrop-strip.right {
-  right: 0;
+/* Mirror the right motif so the two sides frame the page symmetrically. */
+.backdrop-art.right {
+  right: 1rem;
+  transform: scaleX(-1);
 }
 
 .backdrop .ring {
@@ -317,7 +320,7 @@ code {
 }
 
 /* Hide the motif once the margins get too narrow to hold it. */
-@media (max-width: 900px) {
+@media (max-width: 1000px) {
   .backdrop {
     display: none;
   }

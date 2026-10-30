@@ -1,4 +1,4 @@
-import { describe, it, expect } from 'vitest'
+import { describe, it, expect } from 'bun:test'
 import { externalLink } from './utils'
 
 // Verifies the attributes spread onto every outbound link.

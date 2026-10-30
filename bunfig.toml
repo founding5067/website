@@ -1,0 +1,8 @@
+[run]
+# Run package bin scripts (vite, svelte-kit, svelte-check, prettier) on Bun
+# instead of the Node their shebangs ask for — same as `bun --bun` everywhere.
+bun = true
+
+[test]
+root = 'src'
+preload = ['./src/test-setup.ts']

@@ -1,32 +1,34 @@
 <script>
-	// Imports the theme helper and applies the CSS from app.css to the document.
-	import '../app.css';
-	import { toggleTheme } from '$lib/theme.ts';
+  // Applies the CSS from app.css to the document.
+  import '../app.css'
 
-	// Tracks the currently selected theme and the icon shown on the toggle button.
-	// Starts on 'dark' to match the initial value written in app.html.
-	let theme = 'dark';
-	let icon = '🌙';
-
-	// Switches the theme by flipping the stored value, then updates the icon
-	// so the button always reflects the mode the user last chose.
-	function toggle() {
-		theme = toggleTheme();
-		icon = theme === 'dark' ? '🌙' : '☀️';
-	}
+  let { children } = $props()
 </script>
 
-<slot />
+<!-- One decorative motif on each page edge, spread from the top of the window
+to the bottom (the right one is mirrored in app.css). Positions are
+percentages so the shapes spread out on tall windows and close up on short
+ones while staying round. Purely visual, so it is hidden from assistive tech
+and ignores clicks; app.css hides it on narrow screens. -->
+<div class="backdrop" aria-hidden="true">
+  {#each ['left', 'right'] as side}
+    <svg class="backdrop-art {side}">
+      <circle cx="50%" cy="8%" r="40" class="ring" />
+      <circle cx="50%" cy="8%" r="14" class="dot" />
+      <circle cx="22%" cy="20%" r="7" class="dot" />
+      <circle cx="74%" cy="29%" r="20" class="ring" />
+      <circle cx="36%" cy="42%" r="30" class="ring" />
+      <circle cx="36%" cy="42%" r="10" class="dot" />
+      <circle cx="78%" cy="53%" r="6" class="dot" />
+      <circle cx="60%" cy="65%" r="24" class="ring" />
+      <circle cx="24%" cy="76%" r="8" class="dot" />
+      <circle cx="50%" cy="90%" r="34" class="ring" />
+      <circle cx="50%" cy="90%" r="11" class="dot" />
+    </svg>
+  {/each}
+</div>
 
-<!-- Fixed-position button in the top-right corner. The aria-label stays constant
-for stable screen-reader focus; the title switches so it points toward the
-mode the user is about to enter. -->
-<button
-	type="button"
-	class="theme-toggle"
-	onclick={toggle}
-	aria-label="Toggle dark mode"
-	title={icon === '☀️' ? 'Switch to light mode' : 'Switch to dark mode'}
->
-	{icon}
-</button>
+<!-- The shell is the same width as <main> and sits above the backdrop. -->
+<div class="shell">
+  {@render children()}
+</div>

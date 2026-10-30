@@ -6,8 +6,7 @@ A clean, minimal personal website built with **SvelteKit** and
 ## Features
 
 - Single, fast static page (prerendered to HTML at build time).
-- Content is data-driven: edit `src/lib/about.json` and `src/lib/projects.json` to update the site.
-- Light/dark mode via a manual toggle (defaults to dark).
+- Content is data-driven: edit `src/lib/about.json` and `src/lib/projects.json` to update the site. In `about.json`, `paragraphs` is the intro text, `photo` points at an image in `src/static/` (e.g. `src/static/me.jpg` → `"/me.jpg"`; initials show until it exists), and each link's optional `icon` is a key from `src/lib/icons.ts`.
 - Safe outbound links (opens in a new tab with `rel="noopener noreferrer nofollow"`).
 - Deployed to GitHub Pages automatically on push to `main`.
 

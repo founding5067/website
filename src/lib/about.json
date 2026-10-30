@@ -2,11 +2,21 @@
   "name": "Cole Braswell",
   "role": "Software Engineer",
   "bio": "I build software",
+  "photo": "/me.jpg",
+  "paragraphs": [
+    "Hi, I'm Cole. I'm a software engineer who builds web apps, iOS apps, and small Swift libraries.",
+    "Below are a few things I've been working on. Most of them started as a question I wanted answered or a tool I wanted to use myself."
+  ],
   "links": [
-    { "label": "GitHub", "url": "https://github.com/founding5067" },
+    {
+      "label": "GitHub",
+      "url": "https://github.com/founding5067",
+      "icon": "github"
+    },
     {
       "label": "LinkedIn",
-      "url": "https://www.linkedin.com/in/colebraswell6419"
+      "url": "https://www.linkedin.com/in/colebraswell6419",
+      "icon": "linkedin"
     }
   ]
 }

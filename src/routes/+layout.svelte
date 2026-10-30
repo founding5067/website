@@ -1,32 +1,34 @@
 <script>
-  // Imports the theme helper and applies the CSS from app.css to the document.
+  // Applies the CSS from app.css to the document.
   import '../app.css'
-  import { toggleTheme } from '$lib/theme.ts'
 
   let { children } = $props()
-
-  // Tracks the currently selected theme. Starts on 'dark' to match the initial
-  // value written in app.html.
-  let theme = $state('dark')
-
-  // Switches the theme by flipping the stored value; the icon and tooltip are
-  // derived from it so the button always reflects the mode the user last chose.
-  function toggle() {
-    theme = toggleTheme()
-  }
 </script>
 
-{@render children()}
+<!-- Decorative motif down both page edges. Purely visual, so it is hidden from
+assistive tech and ignores clicks; app.css hides it on narrow screens. -->
+<div class="backdrop" aria-hidden="true">
+  {#each ['left', 'right'] as side}
+    <svg class="backdrop-strip {side}">
+      <defs>
+        <pattern
+          id="motif-{side}"
+          width="120"
+          height="160"
+          patternUnits="userSpaceOnUse"
+        >
+          <circle cx="60" cy="40" r="26" class="ring" />
+          <circle cx="60" cy="40" r="10" class="dot" />
+          <circle cx="24" cy="120" r="6" class="dot" />
+          <circle cx="96" cy="128" r="14" class="ring" />
+        </pattern>
+      </defs>
+      <rect width="100%" height="100%" fill="url(#motif-{side})" />
+    </svg>
+  {/each}
+</div>
 
-<!-- Fixed-position button in the top-right corner. The aria-label stays constant
-for stable screen-reader focus; the title switches so it points toward the
-mode the user is about to enter. -->
-<button
-  type="button"
-  class="theme-toggle"
-  onclick={toggle}
-  aria-label="Toggle dark mode"
-  title={theme === 'dark' ? 'Switch to light mode' : 'Switch to dark mode'}
->
-  {theme === 'dark' ? '🌙' : '☀️'}
-</button>
+<!-- The shell is the same width as <main> and sits above the backdrop. -->
+<div class="shell">
+  {@render children()}
+</div>

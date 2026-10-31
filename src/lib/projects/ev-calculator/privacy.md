@@ -1,19 +1,30 @@
-_Last updated: [date]_
+_Last updated: October 16, 2026_
 
-[Placeholder. Replace this whole page with Cole's EV Calculator's real privacy policy before publishing.]
+EVCalc does not collect, store on a server, share or sell any data about you.
 
-## Information the app collects
+## What stays on your device
 
-[Describe what data, if any, the app collects, for example: none, analytics, crash reports, iCloud data.]
+Your settings (theme, units, charger speeds) and, if you turn on "Remember my inputs", the numbers you enter (battery size, charger speed, electricity price, trip details) are saved on your device only. Turning "Remember my inputs" off, or using "Reset everything" in Settings, erases them. Deleting the app removes everything it saved.
 
-## How the information is used
+## What we do not do
 
-[Explain why each kind of data is collected and how it is used.]
+- No account or sign-in.
+- No analytics, advertising or tracking, and no third-party code that collects data.
+- No network requests: the app does its calculations on your device.
+- No access to your location, contacts, photos or other personal information.
 
-## Sharing
+## Siri and Shortcuts
 
-[Say whether any data is shared with third parties, and which.]
+If you use EVCalc with Siri or Shortcuts, the numbers you say or type are used on your device to work out the answer. Apple handles Siri requests under its own privacy policy.
+
+## Children
+
+The app collects no personal information from anyone, including children.
+
+## Changes
+
+If this ever changes, for example if a feature needs to collect data, this page will be updated first and the date above will change.
 
 ## Contact
 
-[How users can reach you with privacy questions.]
+[coledev67@gmail.com](mailto:coledev67@gmail.com)

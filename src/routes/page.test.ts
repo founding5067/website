@@ -5,9 +5,10 @@ import about from '$lib/about.json'
 import projects from '$lib/projects.json'
 import Page from './+page.svelte'
 import Layout from './+layout.svelte'
+import { load } from './+page.server.ts'
 
 // Renders the page to HTML the same way the static build prerenders it.
-const { head, body } = render(Page)
+const { head, body } = render(Page, { props: { data: load() } })
 
 describe('+page.svelte', () => {
   // Verifies the name and intro paragraphs show, and the role and bio reach <head>.
@@ -54,6 +55,18 @@ describe('+page.svelte', () => {
     const withStack = projects.filter((project) => project.stack).length
     const stackLines = body.match(/What I used:/g) ?? []
     expect(stackLines.length).toBe(withStack)
+  })
+
+  // Verifies the photo shows only when its file exists, with initials
+  // otherwise, so a missing photo never renders as a broken image.
+  it('shows the photo or the initials, never both', () => {
+    const withPhoto = render(Page, { props: { data: { hasPhoto: true } } })
+    expect(withPhoto.body).toContain(`src="${about.photo}"`)
+    expect(withPhoto.body).not.toContain('class="initials"')
+
+    const without = render(Page, { props: { data: { hasPhoto: false } } })
+    expect(without.body).not.toContain('<img')
+    expect(without.body).toContain('class="initials"')
   })
 
   // Verifies the footer copyright uses the current year and name.

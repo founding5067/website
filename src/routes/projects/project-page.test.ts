@@ -1,6 +1,6 @@
 import { describe, it, expect } from 'bun:test'
 import { render } from 'svelte/server'
-import { legalDocs, projects, renderMarkdown } from '$lib/projects.ts'
+import { legalDocs, projects, renderMarkdown } from '#lib/projects.ts'
 import ProjectPage from './[slug]/+page.svelte'
 import LegalPage from './[slug]/[doc=legal]/+page.svelte'
 import { load as loadProject } from './[slug]/+page.server.ts'

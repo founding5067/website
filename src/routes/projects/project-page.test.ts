@@ -34,7 +34,9 @@ describe('projects/[slug]', () => {
 
     // Verifies legal links appear exactly for the docs that exist.
     it(`links ${project.title}'s legal pages`, () => {
-      const links = body.match(/href="\/projects\/[^"]+\/(privacy|terms)\/"/g)
+      const links = body.match(
+        /href="\/projects\/[^"]+\/(privacy|terms|support)\/"/g,
+      )
       expect(links?.length ?? 0).toBe(legalDocs(project.slug).length)
     })
   }

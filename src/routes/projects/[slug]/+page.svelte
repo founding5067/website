@@ -57,7 +57,7 @@
   {/if}
 
   {#if data.docs.length}
-    <nav class="legal-links" aria-label="Legal">
+    <nav class="legal-links" aria-label="More">
       {#each data.docs as doc}
         <a href="/projects/{project.slug}/{doc.name}/">{doc.title}</a>
       {/each}

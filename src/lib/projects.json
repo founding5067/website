@@ -7,7 +7,7 @@
     "type": "iOS app",
     "tags": ["iOS Development"],
     "why": "Wondering what it really costs to drive an EV vs. gas.",
-    "stack": "SwiftUI — iPhone, iPad, Mac",
+    "stack": "SwiftUI",
     "skills": []
   },
   {
@@ -24,12 +24,12 @@
   {
     "slug": "timelabels",
     "title": "TimeLabels",
-    "description": "Short, deterministic date/time labels for Swift UIs — 'In 2h', '5mins ago', '3:30 PM', 'Tomorrow'.",
+    "description": "A Swift package that turns dates into short labels like \"In 2h\", \"5mins ago\" and \"Tomorrow\".",
     "url": "https://github.com/founding5067/TimeLabels",
     "type": "Swift package",
     "tags": ["iOS Development", "Swift", "Libraries", "Utility"],
-    "why": "Turn raw Dates into the short strings a UI needs without duplicating DateFormatter setup across screens. Thread-safe, deterministic output, plus Date extensions and a self-updating SwiftUI TimeLabelText.",
-    "stack": "Swift 6.0+, SwiftUI — iOS, macOS, watchOS, tvOS, visionOS",
+    "why": "Tired of setting up DateFormatter on every screen.",
+    "stack": "Swift 6, SwiftUI",
     "skills": ["Swift Development"]
   }
 ]

@@ -28,8 +28,8 @@
     "url": "https://github.com/founding5067/TimeLabels",
     "type": "Swift package",
     "tags": ["iOS Development", "Swift", "Libraries", "Utility"],
-    "why": "Turn raw Dates into the short strings a UI needs without duplicating DateFormatter setup across screens. Thread-safe, deterministic output, plus Date extensions and a self-updating SwiftUI TimeLabelText.",
-    "stack": "Swift 6.0+, SwiftUI — iOS, macOS, watchOS, tvOS, visionOS",
+    "why": "Turn raw Dates into the short strings a UI needs without duplicating DateFormatter setup across screens. Covers countdowns (timeRemaining), elapsed time (timeAgo), automatic direction (relative), durations ('1h 30m' or '1:30:00'), clock times, and dates like 'Tomorrow at 3:30 PM'. Configurable units, rounding, and spelling, with Date extensions and a self-updating SwiftUI TimeLabelText. Thread-safe with no shared mutable state, fixed en_US_POSIX locale and Gregorian calendar for consistent output, and a now: parameter for testing. Installs via Swift Package Manager (2.0.0+) under the MIT license.",
+    "stack": "Swift 6.0+, SwiftUI — iOS 16+, macOS 13+, watchOS 9+, tvOS 16+, visionOS 1+ (tested on Linux in CI)",
     "skills": ["Swift Development"]
   }
 ]

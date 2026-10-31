@@ -1,6 +1,7 @@
 import { existsSync, readFileSync } from 'node:fs'
 import { join } from 'node:path'
 import { Marked } from 'marked'
+import { LEGAL_DOCS, type LegalDoc } from './legal-docs.ts'
 import projectData from './projects.json'
 import { externalLink } from './utils.ts'
 
@@ -20,18 +21,9 @@ export type Project = {
   banner?: string
 }
 
+export { LEGAL_DOCS, type LegalDoc }
+
 export const projects = projectData as Project[]
-
-// Extra pages a project can have, keyed by the Markdown file name and the
-// URL segment (/projects/<slug>/privacy/). The value is the page heading.
-// (Named "legal" for the route param; Support is the App Store support URL.)
-export const LEGAL_DOCS = {
-  privacy: 'Privacy Policy',
-  terms: 'Terms of Use',
-  support: 'Support',
-} as const
-
-export type LegalDoc = keyof typeof LEGAL_DOCS
 
 // Long-form project text lives in src/lib/projects/<slug>/<name>.md. Files are
 // read from disk rather than imported so a missing file just means "no page";

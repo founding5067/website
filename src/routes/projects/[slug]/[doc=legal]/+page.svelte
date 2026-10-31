@@ -1,5 +1,5 @@
 <script lang="ts">
-  import about from '$lib/about.json'
+  import about from '#lib/about.json'
 
   let { data } = $props()
 </script>

@@ -6,7 +6,7 @@ import {
   readDoc,
   renderMarkdown,
   LEGAL_DOCS,
-} from '$lib/projects.ts'
+} from '#lib/projects.ts'
 import type { EntryGenerator, PageServerLoad } from './$types'
 
 // Every project gets a landing page, so list every slug for prerendering.

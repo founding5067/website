@@ -25,8 +25,8 @@
     "url": "https://github.com/founding5067/TimeLabels",
     "type": "Swift package",
     "tags": ["iOS Development", "Swift", "Libraries", "Utility"],
-    "why": "Turn raw Dates into the short strings a UI needs without duplicating DateFormatter setup across screens. Thread-safe, deterministic output, plus Date extensions and a self-updating SwiftUI TimeLabelText.",
-    "stack": "Swift 6.0+, SwiftUI — iOS, macOS, watchOS, tvOS, visionOS",
+    "why": "Turn raw Dates into the short strings a UI needs without duplicating DateFormatter setup across screens. Covers time until/since, durations, clock times and ranges, and contextual dates. Thread-safe, deterministic output with a testable now: parameter, plus Date extensions and a self-updating SwiftUI TimeLabelText. MIT licensed.",
+    "stack": "Swift 6.0+, SwiftUI, Swift Package Manager — iOS 16+, macOS 13+, watchOS 9+, tvOS 16+, visionOS 1+",
     "skills": ["Swift Development"]
   }
 ]

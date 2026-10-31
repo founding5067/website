@@ -1,6 +1,8 @@
 import { describe, it, expect } from 'bun:test'
+import { existsSync, readdirSync } from 'node:fs'
+import { join } from 'node:path'
 import about from './about.json'
-import projects from './projects.json'
+import { DOCS_DIR, LEGAL_DOCS, projects } from './projects.ts'
 
 // The site is data-driven, so these tests catch content mistakes (missing
 // fields, typos in URLs) before they reach the rendered page.
@@ -75,6 +77,38 @@ describe('projects.json', () => {
       expect(new Set(project.tags).size, project.title).toBe(
         project.tags.length,
       )
+    }
+  })
+
+  // Verifies slugs are unique and safe to use as a URL path segment.
+  it('has unique, URL-safe slugs', () => {
+    const slugs = projects.map((project) => project.slug)
+    for (const slug of slugs) expect(slug).toMatch(/^[a-z0-9-]+$/)
+    expect(new Set(slugs).size).toBe(slugs.length)
+  })
+
+  // Verifies any icon or banner listed points at a file in src/static.
+  it('points icon and banner paths at files in src/static', () => {
+    for (const project of projects) {
+      for (const image of [project.icon, project.banner]) {
+        if (!image) continue
+        expect(existsSync(join('src/static', image)), image).toBe(true)
+      }
+    }
+  })
+})
+
+describe('src/lib/projects/', () => {
+  // Verifies every folder matches a project slug and every Markdown file is
+  // one the site renders, so a typo doesn't silently drop a page.
+  it('only holds docs for known projects', () => {
+    const slugs = projects.map((project) => project.slug)
+    const names = ['about', ...Object.keys(LEGAL_DOCS)].map((n) => `${n}.md`)
+    for (const folder of readdirSync(DOCS_DIR)) {
+      expect(slugs, folder).toContain(folder)
+      for (const file of readdirSync(join(DOCS_DIR, folder))) {
+        expect(names, `${folder}/${file}`).toContain(file)
+      }
     }
   })
 })

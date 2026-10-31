@@ -269,6 +269,70 @@ h2 {
   padding: 0.1rem 0.55rem;
 }
 
+/* Project landing and legal pages. */
+.back-link {
+  display: inline-block;
+  margin-bottom: 2rem;
+  color: var(--fg);
+  font-weight: 500;
+}
+
+.project-banner {
+  display: block;
+  width: 100%;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  margin-bottom: 1.75rem;
+}
+
+.project-hero {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.project-hero h1 {
+  margin-bottom: 0.4rem;
+}
+
+/* Rounded like an iOS app icon. */
+.project-icon {
+  width: 64px;
+  height: 64px;
+  border-radius: 22%;
+  border: 1px solid var(--border);
+  flex-shrink: 0;
+}
+
+/* Rendered Markdown (about.md, privacy.md, terms.md). */
+.prose h2 {
+  margin: 2rem 0 0.75rem;
+  font-size: 1.2rem;
+}
+
+.prose h3 {
+  margin: 1.5rem 0 0.5rem;
+  font-size: 1.05rem;
+}
+
+.prose ul,
+.prose ol {
+  padding-left: 1.4rem;
+}
+
+.prose img {
+  max-width: 100%;
+  border-radius: 10px;
+}
+
+.legal-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.25rem;
+  font-size: 0.9rem;
+}
+
 .copyright {
   margin: 3rem 0 0;
   color: var(--muted);

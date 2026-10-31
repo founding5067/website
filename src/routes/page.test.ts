@@ -5,9 +5,10 @@ import about from '$lib/about.json'
 import projects from '$lib/projects.json'
 import Page from './+page.svelte'
 import Layout from './+layout.svelte'
+import { load } from './+page.server.ts'
 
 // Renders the page to HTML the same way the static build prerenders it.
-const { head, body } = render(Page)
+const { head, body } = render(Page, { props: { data: load() } })
 
 describe('+page.svelte', () => {
   // Verifies the name and intro paragraphs show, and the role and bio reach <head>.
@@ -20,11 +21,14 @@ describe('+page.svelte', () => {
     expect(head).toContain(about.bio)
   })
 
-  // Verifies every project in projects.json gets a card.
+  // Verifies every project in projects.json gets a card linking to its page.
   it('renders a card for every project', () => {
     const cards = body.match(/class="project-card/g) ?? []
     expect(cards.length).toBe(projects.length)
-    for (const project of projects) expect(body).toContain(project.title)
+    for (const project of projects) {
+      expect(body).toContain(project.title)
+      expect(body).toContain(`href="/projects/${project.slug}/"`)
+    }
   })
 
   // Verifies every contact link from about.json is rendered.
@@ -38,8 +42,8 @@ describe('+page.svelte', () => {
   // Verifies every outbound link opens in a new tab with a safe rel.
   it('spreads externalLink attributes onto every outbound link', () => {
     const links = body.match(/<a\b[^>]*href="https?:[^>]*>/g) ?? []
-    const projectLinks = projects.filter((project) => project.url).length
-    expect(links.length).toBe(projectLinks + about.links.length)
+    // Project cards link to on-site pages, so only contact links go out.
+    expect(links.length).toBe(about.links.length)
     for (const link of links) {
       expect(link).toContain('target="_blank"')
       expect(link).toContain('rel="noopener noreferrer nofollow"')
@@ -51,6 +55,18 @@ describe('+page.svelte', () => {
     const withStack = projects.filter((project) => project.stack).length
     const stackLines = body.match(/What I used:/g) ?? []
     expect(stackLines.length).toBe(withStack)
+  })
+
+  // Verifies the photo shows only when its file exists, with initials
+  // otherwise, so a missing photo never renders as a broken image.
+  it('shows the photo or the initials, never both', () => {
+    const withPhoto = render(Page, { props: { data: { hasPhoto: true } } })
+    expect(withPhoto.body).toContain(`src="${about.photo}"`)
+    expect(withPhoto.body).not.toContain('class="initials"')
+
+    const without = render(Page, { props: { data: { hasPhoto: false } } })
+    expect(without.body).not.toContain('<img')
+    expect(without.body).toContain('class="initials"')
   })
 
   // Verifies the footer copyright uses the current year and name.

@@ -1,6 +1,5 @@
 import adapterStatic from '@sveltejs/adapter-static'
 import { vitePreprocess } from '@sveltejs/vite-plugin-svelte'
-import about from './src/lib/about.json' with { type: 'json' }
 
 const config = {
   preprocess: vitePreprocess(),
@@ -17,18 +16,10 @@ const config = {
       // overwritten by the empty SPA shell.
       fallback: '404.html',
     }),
-    // This is a single, static page — prerender it to HTML at build time.
-    // '*' asks SvelteKit to prerender every route it can reach statically;
-    // with one root route that produces the one HTML file served to GitHub Pages.
+    // Prerender every page to HTML at build time. '*' asks SvelteKit to start
+    // from every route it can reach statically and follow links from there.
     prerender: {
       entries: ['*'],
-      // The crawler follows <img> sources, so a photo listed in about.json
-      // but not yet added to src/static would fail the build. Tolerate that
-      // one path (the page falls back to initials) and fail on anything else.
-      handleHttpError: ({ path, message }) => {
-        if (path === about.photo) return
-        throw new Error(message)
-      },
     },
   },
 }

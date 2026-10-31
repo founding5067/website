@@ -7,7 +7,7 @@
     "type": "iOS app",
     "tags": ["iOS Development"],
     "why": "Wondering what it really costs to drive an EV vs. gas.",
-    "stack": "SwiftUI — iPhone, iPad, Mac",
+    "stack": "SwiftUI",
     "skills": []
   },
   {
@@ -29,7 +29,7 @@
     "type": "Swift package",
     "tags": ["iOS Development", "Swift", "Libraries", "Utility"],
     "why": "Tired of setting up DateFormatter on every screen.",
-    "stack": "Swift 6, SwiftUI — iOS, macOS, watchOS, tvOS, visionOS",
+    "stack": "Swift 6, SwiftUI",
     "skills": ["Swift Development"]
   }
 ]

@@ -1,13 +1,13 @@
 <script>
   // Content and assets are loaded from JSON/data files so the site stays
   // data-driven: edit the JSON to change who is shown and what links appear.
-  import about from '$lib/about.json'
-  import projects from '$lib/projects.json'
+  import about from '#lib/about.json'
+  import projects from '#lib/projects.json'
   // Imported into an array so a *different* file plays each click.
-  import greetingAudioUrl from '$lib/assets/winton-ow-greetings.mp3'
-  import hiThereAudioUrl from '$lib/assets/winton-hi-there.mp3'
-  import { externalLink } from '$lib/utils.ts'
-  import { iconPath } from '$lib/icons.ts'
+  import greetingAudioUrl from '#lib/assets/winton-ow-greetings.mp3'
+  import hiThereAudioUrl from '#lib/assets/winton-hi-there.mp3'
+  import { externalLink } from '#lib/utils.ts'
+  import { iconPath } from '#lib/icons.ts'
 
   let { data } = $props()
 

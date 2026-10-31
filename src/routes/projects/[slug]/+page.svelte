@@ -1,6 +1,6 @@
 <script lang="ts">
-  import about from '$lib/about.json'
-  import { externalLink, linkLabel } from '$lib/utils.ts'
+  import about from '#lib/about.json'
+  import { externalLink, linkLabel } from '#lib/utils.ts'
 
   let { data } = $props()
   let project = $derived(data.project)

@@ -7,7 +7,7 @@ import {
   renderMarkdown,
   LEGAL_DOCS,
   type LegalDoc,
-} from '$lib/projects.ts'
+} from '#lib/projects.ts'
 import type { EntryGenerator, PageServerLoad } from './$types'
 
 // Only prerender the legal pages whose Markdown file exists.

@@ -99,13 +99,9 @@
     <ul class="project-grid">
       {#each projects as project}
         <li>
-          <svelte:element
-            this={project.url ? 'a' : 'div'}
-            class="project-card"
-            {...project.url
-              ? { href: project.url, ...externalLink(project.url) }
-              : {}}
-          >
+          <!-- Each card opens the project's landing page on this site, which
+          holds the outbound link. -->
+          <a class="project-card" href="/projects/{project.slug}/">
             <div class="project-head">
               <span class="project-title">{project.title}</span>
               {#if project.type}<span class="project-type">{project.type}</span
@@ -123,7 +119,7 @@
                   <span class="tag">{tag}</span>
                 {/each}
               </span>{/if}
-          </svelte:element>
+          </a>
         </li>
       {/each}
     </ul>

@@ -20,11 +20,14 @@ describe('+page.svelte', () => {
     expect(head).toContain(about.bio)
   })
 
-  // Verifies every project in projects.json gets a card.
+  // Verifies every project in projects.json gets a card linking to its page.
   it('renders a card for every project', () => {
     const cards = body.match(/class="project-card/g) ?? []
     expect(cards.length).toBe(projects.length)
-    for (const project of projects) expect(body).toContain(project.title)
+    for (const project of projects) {
+      expect(body).toContain(project.title)
+      expect(body).toContain(`href="/projects/${project.slug}/"`)
+    }
   })
 
   // Verifies every contact link from about.json is rendered.
@@ -38,8 +41,8 @@ describe('+page.svelte', () => {
   // Verifies every outbound link opens in a new tab with a safe rel.
   it('spreads externalLink attributes onto every outbound link', () => {
     const links = body.match(/<a\b[^>]*href="https?:[^>]*>/g) ?? []
-    const projectLinks = projects.filter((project) => project.url).length
-    expect(links.length).toBe(projectLinks + about.links.length)
+    // Project cards link to on-site pages, so only contact links go out.
+    expect(links.length).toBe(about.links.length)
     for (const link of links) {
       expect(link).toContain('target="_blank"')
       expect(link).toContain('rel="noopener noreferrer nofollow"')

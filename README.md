@@ -1,12 +1,13 @@
 # Personal Website
 
 A clean, minimal personal website built with **SvelteKit** and
-[`@sveltejs/adapter-static`](https://www.npmjs.com/package/@sveltejs/adapter-static). It describes who I am and links out to my projects — the projects themselves are not hosted here.
+[`@sveltejs/adapter-static`](https://www.npmjs.com/package/@sveltejs/adapter-static). It describes who I am and gives each project its own landing page (plus Privacy and Terms pages for apps) — the projects themselves are not hosted here.
 
 ## Features
 
-- Single, fast static page (prerendered to HTML at build time).
+- Fast static pages (prerendered to HTML at build time).
 - Content is data-driven: edit `src/lib/about.json` and `src/lib/projects.json` to update the site. In `about.json`, `paragraphs` is the intro text, `photo` points at an image in `src/static/` (e.g. `src/static/me.jpg` → `"/me.jpg"`; initials show until it exists), and each link's optional `icon` is a key from `src/lib/icons.ts`.
+- Project pages: each project in `projects.json` has a `slug` (its URL, `/projects/<slug>/`) and optional `icon` and `banner` images (e.g. `"/projects/ev-calculator/icon.png"` → `src/static/projects/ev-calculator/icon.png`). Write the page body in `src/lib/projects/<slug>/about.md`, and add `privacy.md` / `terms.md` there to publish `/projects/<slug>/privacy/` and `/projects/<slug>/terms/`.
 - Safe outbound links (opens in a new tab with `rel="noopener noreferrer nofollow"`).
 - Deployed to GitHub Pages automatically on push to `main`.
 

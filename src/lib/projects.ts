@@ -22,11 +22,13 @@ export type Project = {
 
 export const projects = projectData as Project[]
 
-// Legal pages a project can have, keyed by the Markdown file name and the
+// Extra pages a project can have, keyed by the Markdown file name and the
 // URL segment (/projects/<slug>/privacy/). The value is the page heading.
+// (Named "legal" for the route param; Support is the App Store support URL.)
 export const LEGAL_DOCS = {
   privacy: 'Privacy Policy',
   terms: 'Terms of Use',
+  support: 'Support',
 } as const
 
 export type LegalDoc = keyof typeof LEGAL_DOCS

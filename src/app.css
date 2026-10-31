@@ -10,6 +10,7 @@
   --accent: #5ccef5;
   --border: #d98b5e;
   --code-bg: #f0b429;
+  --code-surface: #ece2cf;
 }
 
 * {
@@ -340,10 +341,23 @@ h2 {
 }
 
 code {
-  background: var(--code-bg);
+  background: var(--code-surface);
   padding: 0.1rem 0.35rem;
   border-radius: 4px;
   font-size: 0.9em;
+}
+
+pre {
+  background: var(--code-surface);
+  border-radius: 8px;
+  padding: 0.8rem 1rem;
+  overflow-x: auto;
+}
+
+pre code {
+  background: none;
+  padding: 0;
+  font-size: 0.85rem;
 }
 
 /* Decorative motifs, one per page edge, behind the content. */
